@@ -1,0 +1,38 @@
+dist: trusty
+sudo: required
+language: node_js
+node_js:
+  - "10.5.0"
+jobs:
+  include:
+    - stage: build
+      install: npm install
+      script: npm run build
+    - stage: test
+      install: npm install
+      before_script:
+        - npm install -g mocha
+        - npm install -g nyc
+        - npm install -g codecov
+        - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        - chmod +x ./cc-test-reporter
+        - ./cc-test-reporter before-build
+      script:
+        - npm run build
+        - npm run test
+      after_script:
+        - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+      after_success:
+        - codecov
+        - codeclimate < ./coverage/lcov.info
+stages:
+  - build
+  - test
+notifications:
+#  slack:
+#    secure: ""
+  email:
+    recipients:
+      - eldar@coralogix.com
+    on_success: change
+    on_failure: always

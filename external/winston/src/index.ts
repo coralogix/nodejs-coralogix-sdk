@@ -1,0 +1,1 @@
+export * from "./coralogix-winston.transport"

@@ -1,0 +1,88 @@
+{
+  "name": "coralogix-logger",
+  "title": "Coralogix Logger Node.js SDK",
+  "version": "1.2.0",
+  "description": "Node.js SDK to send your logs to Coralogix",
+  "homepage": "https://coralogix.com/",
+  "license": "Apache-2.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": {
+    "name": "Coralogix",
+    "email": "info@coralogix.com",
+    "url": "https://coralogix.com/"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "contributors": [
+    {
+      "name": "Yoni Farin",
+      "email": "farin99@gmail.com",
+      "url": "https://github.com/farin99"
+    },
+    {
+      "name": "Amnon Shahar",
+      "email": "amnon@coralogix.com",
+      "url": "https://github.com/amnons77"
+    },
+    {
+      "name": "Eldar Aliiev",
+      "email": "eldar@coralogix.com",
+      "url": "https://github.com/EldarAliiev"
+    }
+  ],
+  "keywords": [
+    "coralogix",
+    "logs",
+    "sdk",
+    "javascript",
+    "typescript",
+    "library"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/coralogix/nodejs-coralogix-sdk.git"
+  },
+  "bugs": {
+    "email": "info@coralogix.com",
+    "url": "https://github.com/coralogix/nodejs-coralogix-sdk/issues"
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "compile": "tsc -p src",
+    "lint": "tslint ./src/**.ts",
+    "build": "npm run clean; npm run compile",
+    "docs": "jsdoc -c conf.json -P package.json -R README.md -d docs ./dist/**",
+    "release": "npm run build; npm run docs",
+    "test": "nyc --reporter=lcov --reporter=text mocha --recursive",
+    "publicate": "npm run release; npm version patch; npm publish "
+  },
+  "devDependencies": {
+    "@types/node": "6.0.52",
+    "@types/request": "0.0.36",
+    "chai": "^4.1.2",
+    "jsdoc": "^3.5.5",
+    "mocha": "^5.2.0",
+    "nyc": "^11.8.0",
+    "tslint": "^5.10.0",
+    "typescript": "2.1.4"
+  },
+  "dependencies": {
+    "object-sizeof": "1.1.1",
+    "request": "2.79.0",
+    "rxjs": "5.4.0"
+  },
+  "directories": {
+    "doc": "docs",
+    "lib": "dist",
+    "example": "examples",
+    "test": "test"
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "AUTHORS.rst",
+    "dist/"
+  ]
+}

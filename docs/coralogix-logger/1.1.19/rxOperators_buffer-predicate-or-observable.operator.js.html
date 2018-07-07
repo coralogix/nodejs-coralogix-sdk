@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: rxOperators/buffer-predicate-or-observable.operator.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: rxOperators/buffer-predicate-or-observable.operator.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Buffer operators
+ *
+ * @file        This file contains logs buffer operators
+ * @author      Yoni Farin &lt;farin99@gmail.com>
+ * @author      Eldar Aliiev &lt;eldar@coralogix.com>
+ * @link        https://coralogix.com/
+ * @copyright   Coralogix Ltd.
+ * @licence     Apache-2.0
+ * @version     1.0.0
+ * @since       1.0.0
+ */
+"use strict";
+var __extends = (this &amp;&amp; this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var OuterSubscriber_1 = require("rxjs/OuterSubscriber");
+var subscribeToResult_1 = require("rxjs/util/subscribeToResult");
+/**
+ * @class BufferPredicateOrObservableOperator
+ * @classdesc Class BufferPredicateOrObservableOperator representing operator that check if
+ *            buffer is predicate or observable
+ * @description Create new instance of BufferPredicateOrObservableOperator class
+ * @implements {Operator}
+ * @param {BufferPredicate&lt;T>} predicate    - Predicate
+ * @param {Observable&lt;any>} closingNotifier - Notify before closing
+ */
+var BufferPredicateOrObservableOperator = (function () {
+    /**
+     * @description Initialize new instance of BufferPredicateOrObservableOperator class
+     * @param {BufferPredicate&lt;T>} predicate    - Predicate
+     * @param {Observable&lt;any>} closingNotifier - Notify before closing
+     */
+    function BufferPredicateOrObservableOperator(predicate, closingNotifier) {
+        this.predicate = predicate;
+        this.closingNotifier = closingNotifier;
+    }
+    /**
+     * @method call
+     * @description Call operator
+     * @memberOf BufferPredicateOrObservableOperator
+     * @param {Subscriber&lt;T[]>} subscriber  - Subscriber
+     * @param {any} source                  - Source
+     * @public
+     * @returns {any} Result of checking
+     */
+    BufferPredicateOrObservableOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new BufferPredicateOrObservable(subscriber, this.predicate, this.closingNotifier));
+    };
+    return BufferPredicateOrObservableOperator;
+}());
+exports.BufferPredicateOrObservableOperator = BufferPredicateOrObservableOperator;
+/**
+ * @class BufferPredicateOrObservable
+ * @classdesc Class BufferPredicateOrObservable representing buffer predicator class
+ * @description Create new instance of BufferPredicateOrObservable class
+ * @extends {OuterSubscriber}
+ * @param {Subscriber&lt;T[]>} destination     - Destination
+ * @param {BufferPredicate&lt;T>} predicate    - Predicate
+ * @param {Observable&lt;any>} closingNotifier - Notify before closing
+ */
+var BufferPredicateOrObservable = (function (_super) {
+    __extends(BufferPredicateOrObservable, _super);
+    /**
+     * @description Initialize new instance of BufferPredicateOrObservable class
+     * @param {Subscriber&lt;T[]>} destination     - Destination
+     * @param {BufferPredicate&lt;T>} predicate    - Predicate
+     * @param {Observable&lt;any>} closingNotifier - Notify before closing
+     */
+    function BufferPredicateOrObservable(destination, predicate, closingNotifier) {
+        var _this = _super.call(this, destination) || this;
+        _this.predicate = predicate;
+        /**
+         * @member {T[]} buffer
+         * @memberOf BufferPredicateOrObservable
+         * @description Buffer container
+         * @private
+         * @default []
+         */
+        _this.buffer = [];
+        _this.add(subscribeToResult_1.subscribeToResult(_this, closingNotifier));
+        return _this;
+    }
+    /**
+     * @method notifyNext
+     * @description Create notify text
+     * @memberOf BufferPredicateOrObservable
+     * @param {T} outerValue                        - Outer value
+     * @param {any} innerValue                      - Inner value
+     * @param {number} outerIndex                   - Outer index
+     * @param {number} innerIndex                   - Inner index
+     * @param {InnerSubscriber&lt;T, any>} innerSub    - Inner sub
+     */
+    BufferPredicateOrObservable.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex, innerSub) {
+        this.emitBuffer();
+    };
+    /**
+     * @method _next
+     * @description Push value to buffer
+     * @memberOf BufferPredicateOrObservable
+     * @param {T} value - Value to push
+     * @protected
+     */
+    BufferPredicateOrObservable.prototype._next = function (value) {
+        this.buffer.push(value);
+        if (this.predicate(this.buffer)) {
+            this.emitBuffer();
+        }
+    };
+    /**
+     * @method emitBuffer
+     * @description Emit buffer
+     * @memberOf BufferPredicateOrObservable
+     * @private
+     */
+    BufferPredicateOrObservable.prototype.emitBuffer = function () {
+        // If buffer is empty, skip
+        if (this.buffer.length &lt; 1) {
+            return;
+        }
+        var buffer = this.buffer;
+        this.buffer = [];
+        this.destination.next(buffer);
+    };
+    return BufferPredicateOrObservable;
+}(OuterSubscriber_1.OuterSubscriber));
+exports.BufferPredicateOrObservable = BufferPredicateOrObservable;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BufferAction.html">BufferAction</a></li><li><a href="BufferPredicateOrObservable.html">BufferPredicateOrObservable</a></li><li><a href="BufferPredicateOrObservableOperator.html">BufferPredicateOrObservableOperator</a></li><li><a href="Bulk.html">Bulk</a></li><li><a href="Constants.html">Constants</a></li><li><a href="CoralogixCentralLogger.html">CoralogixCentralLogger</a></li><li><a href="CoralogixLogger.html">CoralogixLogger</a></li><li><a href="DebugLogger.html">DebugLogger</a></li><li><a href="HttpHelper.HTTPResponse.html">HTTPResponse</a></li><li><a href="Log.html">Log</a></li><li><a href="LoggerConfig.html">LoggerConfig</a></li><li><a href="LoggerManager.html">LoggerManager</a></li><li><a href="LogsBuffer.html">LogsBuffer</a></li></ul><h3>Namespaces</h3><ul><li><a href="HttpHelper.html">HttpHelper</a></li><li><a href="IPHelper.html">IPHelper</a></li><li><a href="rxHelper.html">rxHelper</a></li></ul><h3>Global</h3><ul><li><a href="global.html#pjson">pjson</a></li><li><a href="global.html#Severity">Severity</a></li><li><a href="global.html#sizeof">sizeof</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Jun 17 2018 18:59:10 GMT+0300 (Восточная Европа, летнее время)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

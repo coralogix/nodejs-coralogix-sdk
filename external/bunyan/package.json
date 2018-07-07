@@ -1,0 +1,26 @@
+{
+  "name": "coralogix-logger-bunyan",
+  "version": "1.0.8",
+  "description": "bunyan stream for sending logs to coralogix",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "p": "rm -rf dist; tsc -p src; npm version patch; npm publish"
+  },
+  "keywords": [
+    "coralogix",
+    "bunyan"
+  ],
+  "author": "Yoni Farin <farin99@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "bunyan": "^1.8.5",
+    "coralogix-logger": "*"
+  },
+  "devDependencies": {
+    "@types/node": "6.0.52",
+    "@types/bunyan": "0.0.32",
+    "typescript": "2.1.4"
+  }
+}

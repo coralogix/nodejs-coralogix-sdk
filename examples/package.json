@@ -1,0 +1,18 @@
+{
+  "name": "examples",
+  "version": "1.0.0",
+  "description": "",
+  "main": "sdk-js.example.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yoni Farin <farin99@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "bunyan": "^1.8.5",
+    "coralogix-logger": "*",
+    "coralogix-logger-bunyan": "^1.0.6",
+    "coralogix-logger-winston": "*",
+    "winston": "^2.3.0"
+  }
+}

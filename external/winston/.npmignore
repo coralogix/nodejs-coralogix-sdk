@@ -1,0 +1,4 @@
+node_modules
+src
+dist/tester.js
+dist/tester.d.js
