@@ -2,13 +2,15 @@
 
 [![npm](https://img.shields.io/npm/v/coralogix.svg)](https://www.npmjs.com/package/coralogix)
 [![node](https://img.shields.io/node/v/coralogix.svg)](https://www.npmjs.com/package/coralogix)
-[![license](https://img.shields.io/github/license/coralogix/sdk-node.svg)](https://github.com/coralogix/nodejs-coralogix-sdk)
+[![license](https://img.shields.io/github/license/coralogix/nodejs-coralogix-sdk.svg)](https://github.com/coralogix/nodejs-coralogix-sdk)
 [![npm](https://img.shields.io/npm/dt/coralogix.svg)](https://www.npmjs.com/package/coralogix)
 [![Build Status](https://travis-ci.org/coralogix/nodejs-coralogix-sdk.svg?branch=master)](https://travis-ci.org/coralogix/nodejs-coralogix-sdk)
 [![codecov](https://codecov.io/gh/EldarAliiev/coralogix/branch/master/graph/badge.svg)](https://codecov.io/gh/coralogix/nodejs-coralogix-sdk)
-[![GitHub issues](https://img.shields.io/github/issues/coralogix/sdk-node.svg)](https://github.com/coralogix/nodejs-coralogix-sdk/issues)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/coralogix/sdk-node.svg)](https://github.com/coralogix/nodejs-coralogix-sdk/pulls)
-[![GitHub contributors](https://img.shields.io/github/contributors/coralogix/sdk-node.svg)](https://github.com/coralogix/nodejs-coralogix-sdk/graphs/contributors)
+[![Maintainability](https://api.codeclimate.com/v1/badges/474f12c23edee33936b9/maintainability)](https://codeclimate.com/github/coralogix/python-coralogix-sdk/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/474f12c23edee33936b9/test_coverage)](https://codeclimate.com/github/coralogix/python-coralogix-sdk/test_coverage)
+[![GitHub issues](https://img.shields.io/github/issues/coralogix/nodejs-coralogix-sdk.svg)](https://github.com/coralogix/nodejs-coralogix-sdk/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/coralogix/nodejs-coralogix-sdk.svg)](https://github.com/coralogix/nodejs-coralogix-sdk/pulls)
+[![GitHub contributors](https://img.shields.io/github/contributors/coralogix/nodejs-coralogix-sdk.svg)](https://github.com/coralogix/nodejs-coralogix-sdk/graphs/contributors)
 
 -----
 Use *coralogix-logger* to easily send your logs to [Coralogix's](http://www.coralogix.com) log analytics platform.
