@@ -1,8 +1,8 @@
 # Coralogix Logger Node.js SDK
 
 [![npm](https://img.shields.io/npm/v/coralogix.svg)](https://www.npmjs.com/package/coralogix)
+[![license](https://img.shields.io/github/license/coralogix/nodejs-coralogix-sdk.svg)](https://raw.githubusercontent.com/coralogix/nodejs-coralogix-sdk/master/LICENSE)
 [![node](https://img.shields.io/node/v/coralogix.svg)](https://www.npmjs.com/package/coralogix)
-[![license](https://img.shields.io/github/license/coralogix/nodejs-coralogix-sdk.svg)](https://github.com/coralogix/nodejs-coralogix-sdk)
 [![npm](https://img.shields.io/npm/dt/coralogix.svg)](https://www.npmjs.com/package/coralogix)
 [![Build Status](https://travis-ci.org/coralogix/nodejs-coralogix-sdk.svg?branch=master)](https://travis-ci.org/coralogix/nodejs-coralogix-sdk)
 [![codecov](https://codecov.io/gh/coralogix/nodejs-coralogix-sdk/branch/master/graph/badge.svg)](https://codecov.io/gh/coralogix/nodejs-coralogix-sdk)
