@@ -1,4 +1,4 @@
-# Coralogix Logger Node.js SDK
+# Coralogix Node.js SDK
 
 [![npm](https://img.shields.io/npm/v/coralogix.svg)](https://www.npmjs.com/package/coralogix)
 [![license](https://img.shields.io/github/license/coralogix/nodejs-coralogix-sdk.svg)](https://raw.githubusercontent.com/coralogix/nodejs-coralogix-sdk/master/LICENSE)

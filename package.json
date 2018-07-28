@@ -1,6 +1,6 @@
 {
   "name": "coralogix-logger",
-  "title": "Coralogix Logger Node.js SDK",
+  "title": "Coralogix Node.js SDK",
   "version": "1.2.0",
   "description": "Node.js SDK to send your logs to Coralogix",
   "homepage": "https://coralogix.com/",
