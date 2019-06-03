@@ -13,6 +13,8 @@
 
 import {Constants} from "../constants";
 
+const stringify = require("json-stringify-safe");
+
 /**
  * @class Log
  * @classdesc Class Log representing log record container
@@ -34,7 +36,15 @@ export class Log {
         }
         log.severity = log.severity || Severity.debug;
         log.category = log.category || Constants.EMPTY_CATEGORY;
-        log.text = log.text || Constants.EMPTY_TEXT;
+
+        let text = null;
+        if ((typeof log.text) !== "string") {
+            text = stringify(log.text);
+        } else {
+            text = log.text || Constants.EMPTY_TEXT;
+        }
+
+        log.text = text;
     }
 
     /**
