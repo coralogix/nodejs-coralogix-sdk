@@ -58,10 +58,7 @@ class Tester{
             "instanceName": "instanceName",
             "instanceId": "1"
         };
-        let b = { name: 'Harpo', sibling: a,a :this.demoLog() };
-        a.sibling = b;
-        b.a = b
-        tmp.text =b
+        tmp.text =a
 
         tmp.severity = Math.floor(Math.random() * 6 +1);
         tmp.category = "Test1000-6";
