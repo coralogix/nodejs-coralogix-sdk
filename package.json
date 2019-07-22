@@ -70,6 +70,7 @@
     "typescript": "2.1.4"
   },
   "dependencies": {
+    "form-data": "^2.5.0",
     "json-stringify-safe": "5.0.1",
     "object-sizeof": "1.1.1",
     "request": "2.88.0",
