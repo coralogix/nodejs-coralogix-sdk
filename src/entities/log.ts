@@ -38,7 +38,7 @@ export class Log {
         log.category = log.category || Constants.EMPTY_CATEGORY;
 
         let text = null;
-        if ((typeof log.text) !== "string") {
+        if (log.text !== null && (typeof log.text) !== "string") {
             text = stringify(log.text);
         } else {
             text = log.text || Constants.EMPTY_TEXT;

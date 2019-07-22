@@ -12,6 +12,7 @@
  */
 "use strict";
 var constants_1 = require("../constants");
+var stringify = require("json-stringify-safe");
 /**
  * @class Log
  * @classdesc Class Log representing log record container
@@ -50,7 +51,14 @@ var Log = (function () {
         }
         log.severity = log.severity || Severity.debug;
         log.category = log.category || constants_1.Constants.EMPTY_CATEGORY;
-        log.text = log.text || constants_1.Constants.EMPTY_TEXT;
+        var text = null;
+        if (log.text !== null && (typeof log.text) !== "string") {
+            text = stringify(log.text);
+        }
+        else {
+            text = log.text || constants_1.Constants.EMPTY_TEXT;
+        }
+        log.text = text;
     };
     return Log;
 }());
