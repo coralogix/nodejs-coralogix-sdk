@@ -38,6 +38,20 @@ describe('Log', function () {
             assert.equal(log.category, constants.Constants.EMPTY_CATEGORY);
             assert.equal(log.text, constants.Constants.EMPTY_TEXT);
         });
+        it('should converts non string log text to string', function () {
+            var log = new log_entry.Log({
+                threadId: null,
+                severity: null,
+                category: null,
+                className: null,
+                methodName: null,
+                text: 1,
+            });
+
+            log_entry.Log.fillDefaultValidValues(log);
+
+            assert.equal((typeof log.text), 'string');
+        });
     });
 });
 

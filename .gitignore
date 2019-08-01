@@ -7,3 +7,4 @@ npm-debug.log*
 *~
 coverage/
 dist/
+package-lock.json
