@@ -17,12 +17,14 @@
   "license": "ISC",
   "dependencies": {
     "util": "^0.10.3",
-    "winston": "^2.3.0",
     "coralogix-logger": "*"
   },
   "devDependencies": {
     "@types/node": "6.0.52",
     "@types/winston": "^0.0.32",
     "typescript": "2.1.4"
+  },
+  "peerDependencies": {
+    "winston": "^2.3.0"
   }
 }
