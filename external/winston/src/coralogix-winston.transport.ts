@@ -54,6 +54,8 @@ export class CoralogixTransport extends winston.Transport{
             delete meta.methodName;
             delete meta.threadId;
             delete meta.category;
+            delete meta.level;
+            delete meta.message;
             
             if(Object.keys(meta).length > 0){
                 if(msg)
