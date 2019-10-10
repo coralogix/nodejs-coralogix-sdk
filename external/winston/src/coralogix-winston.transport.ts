@@ -24,6 +24,7 @@ export class CoralogixTransport extends winston.Transport{
     constructor(options){
         options = Object.assign({},CoralogixTransport.options,options);
         super(options);
+        this.options = options;
         this.logger = new CoralogixLogger(options.category);
         this.name = "Coralogix Transport";
         if(options.timestamp) {
@@ -32,6 +33,7 @@ export class CoralogixTransport extends winston.Transport{
     }
 
     log(level, msg, meta, callback) {
+        meta = Object.assign(meta, this.options.extraFields);
         const log:Log = new Log();
         log.severity = sev_map[level];
 
