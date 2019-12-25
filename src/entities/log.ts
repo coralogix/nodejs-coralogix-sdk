@@ -109,9 +109,11 @@ export class Log {
      */
     constructor(data?) {
         this.timestamp = Date.now();
-        // If data is empty, skip initialization
         if (!data) {
             return;
+        }
+        if (data.timestamp) {
+            this.timestamp = data.timestamp;
         }
         this.threadId = data.threadId;
         this.severity = data.severity;

@@ -17,6 +17,7 @@ describe('Log', function () {
                 className: 'Class name',
                 methodName: 'Method name',
                 text: 'Test message',
+                timestamp: Date.now()
             }), 'undefined');
         });
     });
