@@ -96,6 +96,22 @@ export class LoggerManager {
     private flush$: Subject<any> = new Subject<any>();
 
     /**
+     * @member {Promise<void>} flushed
+     * @memberOf LoggerManager
+     * @description internal state for when the logs were flushed
+     * @private
+     */
+    private flushedPromise: Promise<void>
+/**
+     * @member {Promise<void>} () => void
+     * @memberOf LoggerManager
+     * @description a resolver for when the flush promise is fulfilled
+     * @private
+     */
+    private flushPromiseFulfilled: () => void;
+
+
+    /**
      * @description Initialize new instance of LoggerManager object
      */
     constructor() {
@@ -118,6 +134,25 @@ export class LoggerManager {
                 .finally(() => this.cleanAfterSend(buffer))); // clean buffer and start timer
     }
 
+    /**
+     * @method waitForFlush
+     * @description waits for all the currently pending to be written to the Coralogix backend
+     * @memberOf LoggerManager
+     * @public
+     * @returns {Promise} returns a promise that settles when all the pending logs have been written
+     */
+    public waitForFlush(): Promise<void> {
+        this.flush();
+        if (!this.logStreamSubscription) {
+            return Promise.resolve(); // there are no pending logs
+        }
+        if (!this.flushedPromise) { // there are pending logs - wait for them
+            this.flushedPromise = new Promise<void>((resolve) => {
+                this.flushPromiseFulfilled = resolve;
+            });
+        }
+        return this.flushedPromise;
+    }
     /**
      * @method addLogline
      * @description Add log line to logger manager queue
@@ -194,6 +229,9 @@ export class LoggerManager {
         if (this.bufferSize <= 0 && this.logStreamSubscription) {
             this.logStreamSubscription.unsubscribe();
             this.logStreamSubscription = null;
+            if (this.flushPromiseFulfilled) {
+                this.flushPromiseFulfilled();
+            }
         }
         DebugLogger.d("clean completed");
         this.pauser$.next(false);

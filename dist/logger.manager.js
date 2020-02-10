@@ -73,6 +73,26 @@ var LoggerManager = (function () {
             .finally(function () { return _this.cleanAfterSend(buffer); }); }); // clean buffer and start timer
     }
     /**
+     * @method waitForFlush
+     * @description waits for all the currently pending to be written to the Coralogix backend
+     * @memberOf LoggerManager
+     * @public
+     * @returns {Promise} returns a promise that settles when all the pending logs have been written
+     */
+    LoggerManager.prototype.waitForFlush = function () {
+        var _this = this;
+        this.flush();
+        if (!this.logStreamSubscription) {
+            return Promise.resolve(); // there are no pending logs
+        }
+        if (!this.flushedPromise) {
+            this.flushedPromise = new Promise(function (resolve) {
+                _this.flushPromiseFulfilled = resolve;
+            });
+        }
+        return this.flushedPromise;
+    };
+    /**
      * @method addLogline
      * @description Add log line to logger manager queue
      * @memberOf LoggerManager
@@ -138,6 +158,9 @@ var LoggerManager = (function () {
         if (this.bufferSize <= 0 && this.logStreamSubscription) {
             this.logStreamSubscription.unsubscribe();
             this.logStreamSubscription = null;
+            if (this.flushPromiseFulfilled) {
+                this.flushPromiseFulfilled();
+            }
         }
         debug_logger_1.DebugLogger.d("clean completed");
         this.pauser$.next(false);

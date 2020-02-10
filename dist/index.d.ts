@@ -70,6 +70,14 @@ export declare class CoralogixLogger {
      * @public
      */
     addLog(log: Log): void;
+    /**
+ * @method waitForFlush
+ * @description waits for all the currently pending to be written to the Coralogix backend
+ * @memberOf LoggerManager
+ * @public
+ * @returns {Promise} returns a promise that settles when all the pending logs have been written
+ */
+    waitForFlush(): Promise<void>;
 }
 /**
  * @class CoralogixCentralLogger
