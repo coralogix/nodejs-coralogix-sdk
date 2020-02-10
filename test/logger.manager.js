@@ -81,7 +81,7 @@ describe('LoggerManager', function () {
 
 
     describe('#waitForFlush()', function () {
-        it.only('should wait for logs to be sent', function (done) {
+        it('should wait for logs to be sent', function (done) {
             var logger_manager_instance = new logger_manager.LoggerManager();
             var subject = new rxjs.Subject();
             logger_manager_instance.sendBulk = function() {
