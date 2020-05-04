@@ -50,7 +50,7 @@ const config = new Coralogix.LoggerConfig({
     subsystemName: "node tester sub",
 });
 
-Coralogix.CoralogixLogger.config(config);
+Coralogix.CoralogixLogger.configure(config);
 
 // create a new logger with category
 const logger = new Coralogix.CoralogixLogger("My Category");
