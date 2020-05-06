@@ -79,6 +79,41 @@ describe('LoggerManager', function () {
         });
     });
 
+
+    describe('#waitForFlush()', function () {
+        it('should wait for logs to be sent', function (done) {
+            var logger_manager_instance = new logger_manager.LoggerManager();
+            var subject = new rxjs.Subject();
+            logger_manager_instance.sendBulk = function() {
+                return subject;
+            };
+
+            logger_manager_instance.addLogline(
+                new log_entry.Log({
+                    threadId: '1234',
+                    severity: log_entry.Severity.debug,
+                    category: 'CORALOGIX',
+                    className: 'Class name',
+                    methodName: 'Method name',
+                    text: 'Test message',
+                })
+            );
+
+            var waitForFlush = logger_manager_instance.waitForFlush();
+            var flushed = false;
+            waitForFlush.then(function () {
+                flushed = true;
+                done(); // we want to make sure the promise fulfills
+            });
+            setTimeout(function () {
+                assert.notEqual(flushed, true, 'does not say logs are flushed when they are not');
+                subject.next({ body: {}, response: {}});
+                subject.complete();
+            }, 0);
+
+        });
+    });
+
     describe('#cleanAfterSend()', function () {
         it('should clean logs buffer after sent to Coralogix', function () {
             var logger_manager_instance = new logger_manager.LoggerManager();

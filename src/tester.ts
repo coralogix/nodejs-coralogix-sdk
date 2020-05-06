@@ -95,9 +95,9 @@ class Tester{
         this.logger.addLog(tmp);
     }
 
-
+    waitForFlush(){
+        return this.logger.waitForFlush();
+    }
 }
 
 const tester = new Tester();
-
-

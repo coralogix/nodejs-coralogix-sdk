@@ -59,9 +59,31 @@ export declare class LoggerManager {
      */
     private flush$;
     /**
+     * @member {Promise<void>} flushed
+     * @memberOf LoggerManager
+     * @description internal state for when the logs were flushed
+     * @private
+     */
+    private flushedPromise;
+    /**
+         * @member {Promise<void>} () => void
+         * @memberOf LoggerManager
+         * @description a resolver for when the flush promise is fulfilled
+         * @private
+         */
+    private flushPromiseFulfilled;
+    /**
      * @description Initialize new instance of LoggerManager object
      */
     constructor();
+    /**
+     * @method waitForFlush
+     * @description waits for all the currently pending to be written to the Coralogix backend
+     * @memberOf LoggerManager
+     * @public
+     * @returns {Promise} returns a promise that settles when all the pending logs have been written
+     */
+    waitForFlush(): Promise<void>;
     /**
      * @method addLogline
      * @description Add log line to logger manager queue

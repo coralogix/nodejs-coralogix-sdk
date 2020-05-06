@@ -104,6 +104,16 @@ var CoralogixLogger = (function () {
         log.category = log.category || this.category;
         CoralogixLogger.loggerManager.addLogline(log);
     };
+    /**
+ * @method waitForFlush
+ * @description waits for all the currently pending to be written to the Coralogix backend
+ * @memberOf LoggerManager
+ * @public
+ * @returns {Promise} returns a promise that settles when all the pending logs have been written
+ */
+    CoralogixLogger.prototype.waitForFlush = function () {
+        return CoralogixLogger.loggerManager.waitForFlush();
+    };
     return CoralogixLogger;
 }());
 /**
