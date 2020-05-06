@@ -27,7 +27,7 @@ Use *coralogix-logger* to easily send your logs to [Coralogix's](http://www.cora
 
 Before beginning you must have installed:
 
-* Node.js 
+* Node.js
 * npm
 
 ## Installation
@@ -62,7 +62,7 @@ const log = new Coralogix.Log({
     methodName: "methodName",
     text: "log data",
 })
-// semd log to coralogix
+// send log to coralogix
 logger.addLog(log);
 ```
 
@@ -74,7 +74,7 @@ it's not included in *npm* distribution.
 ```typescript
 import {Log, Severity, CoralogixLogger, LoggerConfig} from "coralogix-logger";
 
-// global confing for application name, private key, subsystem name 
+// global confing for application name, private key, subsystem name
 const config = new LoggerConfig({
     applicationName: "node tester",
     privateKey: "YOUR_PRIVATE_KEY",
@@ -88,11 +88,11 @@ logger: CoralogixLogger = new CoralogixLogger("My Category")
 
 // create a log
 const log = new Log({
-    severity: Severity.info,           
+    severity: Severity.info,
     className: "className",
     methodName: "methodName",
     text: "log data",
 })
-// semd log to coralogix
+// send log to coralogix
 logger.addLog(log);
 ```
