@@ -71,12 +71,12 @@ export declare class CoralogixLogger {
      */
     addLog(log: Log): void;
     /**
- * @method waitForFlush
- * @description waits for all the currently pending to be written to the Coralogix backend
- * @memberOf LoggerManager
- * @public
- * @returns {Promise} returns a promise that settles when all the pending logs have been written
- */
+     * @method waitForFlush
+     * @description waits for all the currently pending to be written to the Coralogix backend
+     * @memberOf LoggerManager
+     * @public
+     * @returns {Promise} returns a promise that settles when all the pending logs have been written
+     */
     waitForFlush(): Promise<void>;
 }
 /**
@@ -120,6 +120,17 @@ export declare class CoralogixCentralLogger {
      * @public
      */
     addLog(applicationName: string, subsystemName: string, log: Log): void;
+    /**
+     * @method addLog
+     * @description Add log line to logger manager queue
+     * @memberOf CoralogixCentralLogger
+     * @param {string} applicationName  - Application name
+     * @param {string} subsystemName    - Subsystem name
+     * @param {string} computerName     - Computer name
+     * @param {Log} log                 - Log line object instance
+     * @public
+     */
+    addLogWithHostname(applicationName: string, subsystemName: string, computerName: string, log: Log): void;
 }
 export * from "./constants";
 export * from "./debug.logger";

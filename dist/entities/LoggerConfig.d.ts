@@ -30,6 +30,14 @@ export declare class LoggerConfig {
      */
     subsystemName: string;
     /**
+     * @member {string} computerName
+     * @memberOf LoggerConfig
+     * @description Computer name
+     * @default Current computer name
+     * @public
+     */
+    computerName: string;
+    /**
      * @member {boolean} debug
      * @memberOf LoggerConfig
      * @description Debug mode

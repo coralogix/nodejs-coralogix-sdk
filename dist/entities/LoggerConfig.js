@@ -12,6 +12,7 @@
  */
 "use strict";
 var constants_1 = require("../constants");
+var ip_helper_1 = require("../helpers/ip.helper");
 /**
  * @class LoggerConfig
  * @classdesc Class LoggerConfig representing logger configuration container
@@ -49,6 +50,14 @@ var LoggerConfig = (function () {
          */
         this.subsystemName = constants_1.Constants.NO_SUB_SYSTEM;
         /**
+         * @member {string} computerName
+         * @memberOf LoggerConfig
+         * @description Computer name
+         * @default Current computer name
+         * @public
+         */
+        this.computerName = ip_helper_1.IPHelper.getComputerName();
+        /**
          * @member {boolean} debug
          * @memberOf LoggerConfig
          * @description Debug mode
@@ -59,6 +68,7 @@ var LoggerConfig = (function () {
         this.privateKey = config.privateKey || this.privateKey;
         this.applicationName = config.applicationName || this.applicationName;
         this.subsystemName = config.subsystemName || this.subsystemName;
+        this.computerName = config.computerName || this.computerName;
         this.debug = config.debug;
     }
     return LoggerConfig;

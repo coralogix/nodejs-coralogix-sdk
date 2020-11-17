@@ -66,11 +66,11 @@ export declare class LoggerManager {
      */
     private flushedPromise;
     /**
-         * @member {Promise<void>} () => void
-         * @memberOf LoggerManager
-         * @description a resolver for when the flush promise is fulfilled
-         * @private
-         */
+     * @member {Promise<void>} () => void
+     * @memberOf LoggerManager
+     * @description a resolver for when the flush promise is fulfilled
+     * @private
+     */
     private flushPromiseFulfilled;
     /**
      * @description Initialize new instance of LoggerManager object

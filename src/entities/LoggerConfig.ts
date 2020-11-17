@@ -12,6 +12,7 @@
  */
 
 import {Constants} from "../constants";
+import {IPHelper} from "../helpers/ip.helper";
 
 /**
  * @class LoggerConfig
@@ -48,6 +49,15 @@ export class LoggerConfig {
     public subsystemName: string = Constants.NO_SUB_SYSTEM;
 
     /**
+     * @member {string} computerName
+     * @memberOf LoggerConfig
+     * @description Computer name
+     * @default Current computer name
+     * @public
+     */
+    public computerName: string = IPHelper.getComputerName();
+
+    /**
      * @member {boolean} debug
      * @memberOf LoggerConfig
      * @description Debug mode
@@ -64,6 +74,7 @@ export class LoggerConfig {
         this.privateKey = config.privateKey || this.privateKey;
         this.applicationName = config.applicationName || this.applicationName;
         this.subsystemName = config.subsystemName || this.subsystemName;
+        this.computerName = config.computerName || this.computerName;
         this.debug = config.debug;
     }
 }

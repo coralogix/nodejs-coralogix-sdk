@@ -128,8 +128,8 @@ export class CoralogixLogger {
         log.category = log.category || this.category;
         CoralogixLogger.loggerManager.addLogline(log);
     }
-    
-        /**
+
+    /**
      * @method waitForFlush
      * @description waits for all the currently pending to be written to the Coralogix backend
      * @memberOf LoggerManager
@@ -196,6 +196,33 @@ export class CoralogixCentralLogger {
             newLogger.config = Object.assign({}, CoralogixCentralLogger.config, {
                 applicationName: applicationName,
                 subsystemName: subsystemName,
+            });
+
+            this.loggers.set(key, newLogger);
+        }
+
+        const logger = this.loggers.get(key);
+        logger.addLogline(log);
+    }
+
+    /**
+     * @method addLog
+     * @description Add log line to logger manager queue
+     * @memberOf CoralogixCentralLogger
+     * @param {string} applicationName  - Application name
+     * @param {string} subsystemName    - Subsystem name
+     * @param {string} computerName     - Computer name
+     * @param {Log} log                 - Log line object instance
+     * @public
+     */
+    public addLogWithHostname(applicationName: string, subsystemName: string, computerName: string, log: Log) {
+        const key = applicationName + "_" + subsystemName + "_" + computerName;
+        if (!this.loggers.has(key)) {
+            const newLogger = new LoggerManager();
+            newLogger.config = Object.assign({}, CoralogixCentralLogger.config, {
+                applicationName: applicationName,
+                subsystemName: subsystemName,
+                computerName: computerName
             });
 
             this.loggers.set(key, newLogger);
