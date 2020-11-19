@@ -67,6 +67,7 @@ var Bulk = (function () {
         bulk.privateKey = config.privateKey || constants_1.Constants.FAILED_PRIVATE_KEY;
         bulk.applicationName = config.applicationName || constants_1.Constants.NO_APP_NAME;
         bulk.subsystemName = config.subsystemName || constants_1.Constants.NO_SUB_SYSTEM;
+        bulk.computerName = config.computerName || bulk.computerName;
         return bulk;
     };
     return Bulk;

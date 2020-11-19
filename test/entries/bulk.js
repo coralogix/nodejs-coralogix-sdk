@@ -21,16 +21,19 @@ describe('Bulk', function () {
             var privateKey = 'ca290f7c-460b-4e50-a64b-460d9b373086';
             var applicationName = 'NodeJS test';
             var subsystemName = 'Test subsystem';
+            var computerName = 'Test host';
 
             var bulk = bulk_entry.Bulk.bulkFromConfig({
                 privateKey: privateKey,
                 applicationName: applicationName,
-                subsystemName: subsystemName
+                subsystemName: subsystemName,
+                computerName: computerName
             });
 
             assert.equal(bulk.privateKey, privateKey);
             assert.equal(bulk.applicationName, applicationName);
             assert.equal(bulk.subsystemName, subsystemName);
+            assert.equal(bulk.computerName, computerName);
         });
 
         it('should fill bulk with default private key', function () {
@@ -76,6 +79,23 @@ describe('Bulk', function () {
             assert.equal(bulk.privateKey, privateKey);
             assert.equal(bulk.applicationName, applicationName);
             assert.equal(bulk.subsystemName, constants.Constants.NO_SUB_SYSTEM);
+        });
+
+        it('should fill bulk with default computer name', function () {
+            var privateKey = 'ca290f7c-460b-4e50-a64b-460d9b373086';
+            var applicationName = 'NodeJS test';
+            var subsystemName = 'Test subsystem';
+
+            var bulk = bulk_entry.Bulk.bulkFromConfig({
+                privateKey: privateKey,
+                applicationName: applicationName,
+                subsystemName: subsystemName
+            });
+
+            assert.equal(bulk.privateKey, privateKey);
+            assert.equal(bulk.applicationName, applicationName);
+            assert.equal(bulk.subsystemName, subsystemName);
+            assert.equal(bulk.computerName, ip_helper.IPHelper.getComputerName());
         });
     });
 });

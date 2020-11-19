@@ -101,8 +101,9 @@ export class LoggerManager {
      * @description internal state for when the logs were flushed
      * @private
      */
-    private flushedPromise: Promise<void>
-/**
+    private flushedPromise: Promise<void>;
+
+    /**
      * @member {Promise<void>} () => void
      * @memberOf LoggerManager
      * @description a resolver for when the flush promise is fulfilled
@@ -126,7 +127,7 @@ export class LoggerManager {
                 buffer => sizeof(buffer) > Constants.MAX_LOG_CHUNK_SIZE,
                 Observable.merge(
                     this.flush$,
-                    rxHelper.makePausable(Observable.interval(Constants.NORMAL_SEND_SPEED_INTERVAL), this.pauser$)
+                    rxHelper.makePausable(Observable.interval(Constants.NORMAL_SEND_SPEED_INTERVAL), this.pauser$),
                 )))
             .do(() => this.pauser$.next(false)) // stop the interval until request completed
             .flatMap(buffer => this.sendBulk(buffer)
@@ -253,8 +254,8 @@ export class LoggerManager {
             .do(err => DebugLogger.d("attempt sending logs failed", err))
             .scan((errorCount, err) => errorCount + 1, 0)
             .do(errorCount => errorCount > Constants.HTTP_SEND_RETRY_COUNT ?
-                function () {
-                    throw "max retry attempts exceeded";
+                () => {
+                    throw new Error ("max retry attempts exceeded");
                 } : DebugLogger.d("retrying (" + errorCount + ")"))
             .delay(Constants.HTTP_SEND_RETRY_INTERVAL);
     }

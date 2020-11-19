@@ -2,6 +2,7 @@ var describe = require('mocha').describe;
 var it = require('mocha').it;
 var assert = require('assert');
 var constants = require('../../dist/constants')
+var ip_helper = require('../../dist/helpers/ip.helper');
 var logger_config_entry = require('../../dist/entities/LoggerConfig');
 
 describe('LoggerConfig', function () {
@@ -10,17 +11,20 @@ describe('LoggerConfig', function () {
             var privateKey = 'ca290f7c-460b-4e50-a64b-460d9b373086';
             var applicationName = 'NodeJS test';
             var subsystemName = 'Test subsystem';
+            var computerName = 'Test host';
 
             var logger_config = new logger_config_entry.LoggerConfig({
                 privateKey: privateKey,
                 applicationName: applicationName,
                 subsystemName: subsystemName,
+                computerName: computerName,
                 debug: false
             });
 
             assert.equal(logger_config.privateKey, privateKey);
             assert.equal(logger_config.applicationName, applicationName);
             assert.equal(logger_config.subsystemName, subsystemName);
+            assert.equal(logger_config.computerName, computerName);
         });
 
         it('should fill logger configuration with default private key', function () {
@@ -72,6 +76,24 @@ describe('LoggerConfig', function () {
             assert.equal(logger_config.privateKey, privateKey);
             assert.equal(logger_config.applicationName, applicationName);
             assert.equal(logger_config.subsystemName, constants.Constants.NO_SUB_SYSTEM);
+        });
+
+        it('should fill logger configuration with default computer name', function () {
+            var privateKey = 'ca290f7c-460b-4e50-a64b-460d9b373086';
+            var applicationName = 'NodeJS test';
+            var subsystemName = 'Test subsystem';
+
+            var logger_config = new logger_config_entry.LoggerConfig({
+                privateKey: privateKey,
+                applicationName: applicationName,
+                subsystemName: subsystemName,
+                debug: false
+            });
+
+            assert.equal(logger_config.privateKey, privateKey);
+            assert.equal(logger_config.applicationName, applicationName);
+            assert.equal(logger_config.subsystemName, subsystemName);
+            assert.equal(logger_config.computerName, ip_helper.IPHelper.getComputerName());
         });
     });
 });

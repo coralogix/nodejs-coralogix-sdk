@@ -105,12 +105,12 @@ var CoralogixLogger = (function () {
         CoralogixLogger.loggerManager.addLogline(log);
     };
     /**
- * @method waitForFlush
- * @description waits for all the currently pending to be written to the Coralogix backend
- * @memberOf LoggerManager
- * @public
- * @returns {Promise} returns a promise that settles when all the pending logs have been written
- */
+     * @method waitForFlush
+     * @description waits for all the currently pending to be written to the Coralogix backend
+     * @memberOf LoggerManager
+     * @public
+     * @returns {Promise} returns a promise that settles when all the pending logs have been written
+     */
     CoralogixLogger.prototype.waitForFlush = function () {
         return CoralogixLogger.loggerManager.waitForFlush();
     };
@@ -171,6 +171,30 @@ var CoralogixCentralLogger = (function () {
             newLogger.config = Object.assign({}, CoralogixCentralLogger.config, {
                 applicationName: applicationName,
                 subsystemName: subsystemName,
+            });
+            this.loggers.set(key, newLogger);
+        }
+        var logger = this.loggers.get(key);
+        logger.addLogline(log);
+    };
+    /**
+     * @method addLog
+     * @description Add log line to logger manager queue
+     * @memberOf CoralogixCentralLogger
+     * @param {string} applicationName  - Application name
+     * @param {string} subsystemName    - Subsystem name
+     * @param {string} computerName     - Computer name
+     * @param {Log} log                 - Log line object instance
+     * @public
+     */
+    CoralogixCentralLogger.prototype.addLogWithHostname = function (applicationName, subsystemName, computerName, log) {
+        var key = applicationName + "_" + subsystemName + "_" + computerName;
+        if (!this.loggers.has(key)) {
+            var newLogger = new logger_manager_1.LoggerManager();
+            newLogger.config = Object.assign({}, CoralogixCentralLogger.config, {
+                applicationName: applicationName,
+                subsystemName: subsystemName,
+                computerName: computerName
             });
             this.loggers.set(key, newLogger);
         }

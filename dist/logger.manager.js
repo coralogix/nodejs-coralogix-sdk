@@ -182,7 +182,7 @@ var LoggerManager = (function () {
             .scan(function (errorCount, err) { return errorCount + 1; }, 0)
             .do(function (errorCount) { return errorCount > constants_1.Constants.HTTP_SEND_RETRY_COUNT ?
             function () {
-                throw "max retry attempts exceeded";
+                throw new Error("max retry attempts exceeded");
             } : debug_logger_1.DebugLogger.d("retrying (" + errorCount + ")"); })
             .delay(constants_1.Constants.HTTP_SEND_RETRY_INTERVAL);
     };
