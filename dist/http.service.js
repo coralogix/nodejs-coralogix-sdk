@@ -25,9 +25,10 @@ var HttpHelper;
      * @description Send a post request with logs bulk
      * @memberOf HttpHelper
      * @param {any} jsonData    - Logs records bulk in JSON format
+     * @param {LoggerConfig} config - Logger config
      * @returns {Observable<HTTPResponse>} Valid HTTP response object
      */
-    function sendBulk(jsonData) {
+    function sendBulk(jsonData, config) {
         var options = {
             body: jsonData,
             gzip: true,
@@ -36,6 +37,9 @@ var HttpHelper;
             timeout: constants_1.Constants.HTTP_TIMEOUT,
             url: constants_1.Constants.CORALOGIX_LOG_URL,
         };
+        if (config.proxyUri) {
+            options.proxy = config.proxyUri;
+        }
         return rxjs_1.Observable.create(function (observer) {
             request(options, function (error, response, body) {
                 if (error || response.statusCode < 200 || response.statusCode > 299) {

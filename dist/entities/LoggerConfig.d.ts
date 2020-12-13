@@ -46,6 +46,14 @@ export declare class LoggerConfig {
      */
     debug: boolean;
     /**
+     * @member {string|undefined} proxyUri
+     * @memberOf LoggerConfig
+     * @description Proxy uri
+     * @default undefined
+     * @public
+     */
+    proxyUri?: string;
+    /**
      * @description Initialize new instance of logger configuration container class
      * @param {object} [config] - Logger configuration parameters
      */

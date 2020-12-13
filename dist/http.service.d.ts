@@ -1,4 +1,5 @@
 import { Observable } from "rxjs";
+import { LoggerConfig } from "./entities/LoggerConfig";
 /**
  * @namespace HttpHelper
  * @description HTTP helper methods
@@ -9,9 +10,10 @@ export declare namespace HttpHelper {
      * @description Send a post request with logs bulk
      * @memberOf HttpHelper
      * @param {any} jsonData    - Logs records bulk in JSON format
+     * @param {LoggerConfig} config - Logger config
      * @returns {Observable<HTTPResponse>} Valid HTTP response object
      */
-    function sendBulk(jsonData: any): Observable<HTTPResponse>;
+    function sendBulk(jsonData: any, config: LoggerConfig): Observable<HTTPResponse>;
     /**
      * @class HTTPResponse
      * @classdesc HTTP response object

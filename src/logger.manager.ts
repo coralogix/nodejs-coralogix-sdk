@@ -214,7 +214,7 @@ export class LoggerManager {
         const bulk = Bulk.bulkFromConfig(this.config);
         bulk.logEntries = buffer;
 
-        return HttpHelper.sendBulk(bulk);
+        return HttpHelper.sendBulk(bulk, this.config);
     }
 
     /**

@@ -143,7 +143,7 @@ var LoggerManager = (function () {
         debug_logger_1.DebugLogger.d("Sending bulk");
         var bulk = bulk_1.Bulk.bulkFromConfig(this.config);
         bulk.logEntries = buffer;
-        return http_service_1.HttpHelper.sendBulk(bulk);
+        return http_service_1.HttpHelper.sendBulk(bulk, this.config);
     };
     /**
      * @method cleanAfterSend
