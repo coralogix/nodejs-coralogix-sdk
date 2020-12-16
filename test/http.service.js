@@ -10,12 +10,13 @@ var http_service = require('../dist/http.service');
 describe('HttpHelper', function () {
     describe('#sendBulk()', function () {
         it('should send logs bulk to Coralogix', function () {
-            var bulk_instance = bulk_entry.Bulk.bulkFromConfig(new logger_config_entry.LoggerConfig({
+            var config = new logger_config_entry.LoggerConfig({
                 privateKey: process.env.PRIVATE_KEY,
                 applicationName: process.env.APP_NAME || 'NodeJS',
                 subsystemName: process.env.SUBSYSTEM_NAME || 'Test',
                 debug: false
-            }));
+            });
+            var bulk_instance = bulk_entry.Bulk.bulkFromConfig(config);
 
             bulk_instance.logEntries = [
                 new log_entry.Log({
@@ -28,7 +29,7 @@ describe('HttpHelper', function () {
                 })
             ];
 
-            var http_response = http_service.HttpHelper.sendBulk(bulk_instance);
+            var http_response = http_service.HttpHelper.sendBulk(bulk_instance, config);
 
             assert.equal(http_response instanceof rxjs.Observable, true);
 
@@ -40,12 +41,13 @@ describe('HttpHelper', function () {
 
         describe('Error catching', function () {
             it('should fails with invalid private key', function () {
-                var bulk_instance = bulk_entry.Bulk.bulkFromConfig(new logger_config_entry.LoggerConfig({
+                var config = new logger_config_entry.LoggerConfig({
                     privateKey: 'invalid',
                     applicationName: process.env.APP_NAME || 'NodeJS',
                     subsystemName: process.env.SUBSYSTEM_NAME || 'Test',
                     debug: false
-                }));
+                });
+                var bulk_instance = bulk_entry.Bulk.bulkFromConfig(config);
 
                 bulk_instance.logEntries = [
                     new log_entry.Log({
@@ -58,7 +60,7 @@ describe('HttpHelper', function () {
                     })
                 ];
 
-                var http_response = http_service.HttpHelper.sendBulk(bulk_instance);
+                var http_response = http_service.HttpHelper.sendBulk(bulk_instance, config);
 
                 assert.equal(http_response instanceof rxjs.Observable, true);
 
