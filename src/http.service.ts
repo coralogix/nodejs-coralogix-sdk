@@ -15,6 +15,7 @@ import * as request from "request";
 import {CoreOptions, UrlOptions} from "request";
 import {Observable} from "rxjs";
 import {Constants} from "./constants";
+import {LoggerConfig} from "./entities/LoggerConfig";
 
 /**
  * @namespace HttpHelper
@@ -26,9 +27,10 @@ export namespace HttpHelper {
      * @description Send a post request with logs bulk
      * @memberOf HttpHelper
      * @param {any} jsonData    - Logs records bulk in JSON format
+     * @param {LoggerConfig} config - Logger config
      * @returns {Observable<HTTPResponse>} Valid HTTP response object
      */
-    export function sendBulk(jsonData: any): Observable<HTTPResponse> {
+    export function sendBulk(jsonData: any, config: LoggerConfig): Observable<HTTPResponse> {
         const options: CoreOptions & UrlOptions = {
             body: jsonData,
             gzip: true,
@@ -37,6 +39,9 @@ export namespace HttpHelper {
             timeout: Constants.HTTP_TIMEOUT,
             url: Constants.CORALOGIX_LOG_URL,
         };
+        if (config.proxyUri) {
+            options.proxy = config.proxyUri;
+        }
 
         return Observable.create(observer => {
             request(options, (error, response, body) => {

@@ -70,6 +70,7 @@ var LoggerConfig = (function () {
         this.subsystemName = config.subsystemName || this.subsystemName;
         this.computerName = config.computerName || this.computerName;
         this.debug = config.debug;
+        this.proxyUri = config.proxyUri;
     }
     return LoggerConfig;
 }());

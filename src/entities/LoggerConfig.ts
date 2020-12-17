@@ -67,6 +67,15 @@ export class LoggerConfig {
     public debug: boolean = false;
 
     /**
+     * @member {string|undefined} proxyUri
+     * @memberOf LoggerConfig
+     * @description Proxy uri
+     * @default undefined
+     * @public
+     */
+    public proxyUri?: string;
+
+    /**
      * @description Initialize new instance of logger configuration container class
      * @param {object} [config] - Logger configuration parameters
      */
@@ -76,5 +85,6 @@ export class LoggerConfig {
         this.subsystemName = config.subsystemName || this.subsystemName;
         this.computerName = config.computerName || this.computerName;
         this.debug = config.debug;
+        this.proxyUri = config.proxyUri;
     }
 }
