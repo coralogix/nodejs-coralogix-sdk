@@ -63,7 +63,7 @@ var LoggerManager = (function () {
         debug_logger_1.DebugLogger.d("starting log-manager");
         this.logBulkObs$ = rxjs_1.Observable.create(function (observer) { return _this.addLogStream = observer; })
             .do(function (log) { return log_1.Log.fillDefaultValidValues(log); })
-            .do(function (log) { return _this.bufferSize >= constants_1.Constants.MAX_LOG_BUFFER_SIZE ? debug_logger_1.DebugLogger.d("max logs exceeded, dropping log") : null; })
+            .do(function (log) { return _this.bufferSize >= constants_1.Constants.MAX_LOG_BUFFER_SIZE ? console.log("max logs exceeded, dropping log") : null; })
             .filter(function (log) { return _this.bufferSize < constants_1.Constants.MAX_LOG_BUFFER_SIZE; })
             .do(function (log) { return _this.bufferSize += sizeof(log); })
             .lift(new buffer_predicate_or_observable_operator_1.BufferPredicateOrObservableOperator(function (buffer) { return sizeof(buffer) > constants_1.Constants.MAX_LOG_CHUNK_SIZE; }, rxjs_1.Observable.merge(this.flush$, rx_helper_1.rxHelper.makePausable(rxjs_1.Observable.interval(constants_1.Constants.NORMAL_SEND_SPEED_INTERVAL), this.pauser$))))
