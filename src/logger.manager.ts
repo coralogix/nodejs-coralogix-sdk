@@ -120,14 +120,7 @@ export class LoggerManager {
 
         this.logBulkObs$ = Observable.create(observer => this.addLogStream = observer)
             .do(log => Log.fillDefaultValidValues(log))
-            .do(log => {
-                if (this.bufferSize >= Constants.MAX_LOG_BUFFER_SIZE) { 
-                    this.addLogline(new Log({
-                        severity: Severity.warning,
-                        text: `Coralogix Logger reached maximum buffer size (${this.bufferSize})`
-                    }));
-                }
-            })
+            .do(log => this.bufferSize >= Constants.MAX_LOG_BUFFER_SIZE ? DebugLogger.d("max logs exceeded, dropping log") : null)
             .filter(log => this.bufferSize < Constants.MAX_LOG_BUFFER_SIZE)
             .do(log => this.bufferSize += sizeof(log))
             .lift(new BufferPredicateOrObservableOperator<Log>(
