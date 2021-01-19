@@ -16,7 +16,7 @@ import {Subscription} from "rxjs/Subscription";
 import {Constants} from "./constants";
 import {DebugLogger} from "./debug.logger";
 import {Bulk} from "./entities/bulk";
-import {Log, Severity} from "./entities/log";
+import {Log} from "./entities/log";
 import {LoggerConfig} from "./entities/LoggerConfig";
 import {rxHelper} from "./helpers/rx.helper";
 import {HttpHelper} from "./http.service";
