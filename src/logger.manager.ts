@@ -16,7 +16,7 @@ import {Subscription} from "rxjs/Subscription";
 import {Constants} from "./constants";
 import {DebugLogger} from "./debug.logger";
 import {Bulk} from "./entities/bulk";
-import {Log} from "./entities/log";
+import {Log, Severity} from "./entities/log";
 import {LoggerConfig} from "./entities/LoggerConfig";
 import {rxHelper} from "./helpers/rx.helper";
 import {HttpHelper} from "./http.service";
@@ -120,7 +120,14 @@ export class LoggerManager {
 
         this.logBulkObs$ = Observable.create(observer => this.addLogStream = observer)
             .do(log => Log.fillDefaultValidValues(log))
-            .do(log => this.bufferSize >= Constants.MAX_LOG_BUFFER_SIZE ? console.log("max logs exceeded, dropping log") : null)
+            .do(log => {
+                if (this.bufferSize >= Constants.MAX_LOG_BUFFER_SIZE) { 
+                    this.addLogline(new Log({
+                        severity: Severity.warning,
+                        text: `Coralogix Logger reached maximum buffer size (${this.bufferSize})`
+                    }));
+                }
+            })
             .filter(log => this.bufferSize < Constants.MAX_LOG_BUFFER_SIZE)
             .do(log => this.bufferSize += sizeof(log))
             .lift(new BufferPredicateOrObservableOperator<Log>(

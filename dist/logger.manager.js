@@ -64,6 +64,14 @@ var LoggerManager = (function () {
         this.logBulkObs$ = rxjs_1.Observable.create(function (observer) { return _this.addLogStream = observer; })
             .do(function (log) { return log_1.Log.fillDefaultValidValues(log); })
             .do(function (log) { return _this.bufferSize >= constants_1.Constants.MAX_LOG_BUFFER_SIZE ? console.log("max logs exceeded, dropping log") : null; })
+            .do(log => {
+                if (_this.bufferSize >= constants_1.Constants.MAX_LOG_BUFFER_SIZE) { 
+                    this.addLogline(new Log({
+                        severity: log_1.Severity.warning,
+                        text: `Coralogix Logger reached maximum buffer size (${_this.bufferSize})`
+                    }));
+                }
+            })
             .filter(function (log) { return _this.bufferSize < constants_1.Constants.MAX_LOG_BUFFER_SIZE; })
             .do(function (log) { return _this.bufferSize += sizeof(log); })
             .lift(new buffer_predicate_or_observable_operator_1.BufferPredicateOrObservableOperator(function (buffer) { return sizeof(buffer) > constants_1.Constants.MAX_LOG_CHUNK_SIZE; }, rxjs_1.Observable.merge(this.flush$, rx_helper_1.rxHelper.makePausable(rxjs_1.Observable.interval(constants_1.Constants.NORMAL_SEND_SPEED_INTERVAL), this.pauser$))))
