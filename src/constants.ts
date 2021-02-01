@@ -35,7 +35,7 @@ export class Constants {
      * @public
      * @default 12MiB
      */
-    public static MAX_LOG_BUFFER_SIZE: number = 12582912;
+    public static MAX_LOG_BUFFER_SIZE: number = process.env.CORALOGIX_BUFFER_SIZE ? parseInt(process.env.CORALOGIX_BUFFER_SIZE) : 12582912;
 
     /**
      * @member {number} MAX_LOG_CHUNK_SIZE
