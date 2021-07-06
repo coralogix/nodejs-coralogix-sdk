@@ -16,7 +16,7 @@
   "author": "Yoni Farin <farin99@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "util": "^0.10.3",
+    "util": "^0.12.4",
     "coralogix-logger": "*"
   },
   "devDependencies": {
