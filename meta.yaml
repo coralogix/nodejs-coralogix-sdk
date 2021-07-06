@@ -1,0 +1,6 @@
+name: nodejs-coralogix-sdk
+CX_PRODUCT: cs
+deployable_type: library
+code_language: nodejs
+tests: true
+public: true
