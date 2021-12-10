@@ -5,7 +5,7 @@ const config = new Coralogix.LoggerConfig({
     privateKey:"9626c7dd-8174-5015-a3fe-5572e042b6d9",
 });
 
-Coralogix.CoralogixLogger.configure(config);
+Coralogix.CoralogixCentralLogger.configure(config);
 
 // create a new logger with category
 const centralLogger = new Coralogix.CoralogixCentralLogger();
