@@ -13,7 +13,7 @@
     "coralogix",
     "winston"
   ],
-  "author": "Yoni Farin <farin99@gmail.com>",
+  "author": "support@coralogix.com",
   "license": "ISC",
   "dependencies": {
     "coralogix-logger": "*",
