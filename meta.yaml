@@ -4,3 +4,4 @@ deployable_type: library
 code_language: nodejs
 tests: true
 public: true
+lifecycle_status: production
