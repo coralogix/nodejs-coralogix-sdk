@@ -1,4 +1,17 @@
 /**
+ * Logger configuration object
+ *
+ * @file        This file contains logger configuration object description
+ * @author      Yoni Farin <farin99@gmail.com>
+ * @author      Eldar Aliiev <eldar@coralogix.com>
+ * @link        https://coralogix.com/
+ * @copyright   Coralogix Ltd.
+ * @licence     Apache-2.0
+ * @version     1.0.0
+ * @since       1.0.0
+ */
+import { AxiosProxyConfig } from "axios";
+/**
  * @class LoggerConfig
  * @classdesc Class LoggerConfig representing logger configuration container
  * @description Create new instance of logger configuration container class
@@ -46,13 +59,14 @@ export declare class LoggerConfig {
      */
     debug: boolean;
     /**
-     * @member {string|undefined} proxyUri
+     * @member {AxiosProxyConfig|undefined} proxyUri
      * @memberOf LoggerConfig
      * @description Proxy uri
      * @default undefined
      * @public
      */
-    proxyUri?: string;
+    proxyUri?: AxiosProxyConfig;
+    private getAxioProxyConfig;
     /**
      * @description Initialize new instance of logger configuration container class
      * @param {object} [config] - Logger configuration parameters

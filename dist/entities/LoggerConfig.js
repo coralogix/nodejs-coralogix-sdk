@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Logger configuration object
  *
@@ -10,7 +11,8 @@
  * @version     1.0.0
  * @since       1.0.0
  */
-"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.LoggerConfig = void 0;
 var constants_1 = require("../constants");
 var ip_helper_1 = require("../helpers/ip.helper");
 /**
@@ -19,7 +21,7 @@ var ip_helper_1 = require("../helpers/ip.helper");
  * @description Create new instance of logger configuration container class
  * @param {object} [config] - Logger configuration parameters
  */
-var LoggerConfig = (function () {
+var LoggerConfig = /** @class */ (function () {
     /**
      * @description Initialize new instance of logger configuration container class
      * @param {object} [config] - Logger configuration parameters
@@ -70,8 +72,21 @@ var LoggerConfig = (function () {
         this.subsystemName = config.subsystemName || this.subsystemName;
         this.computerName = config.computerName || this.computerName;
         this.debug = config.debug;
-        this.proxyUri = config.proxyUri;
+        this.proxyUri = this.getAxioProxyConfig(config.proxyUri);
     }
+    LoggerConfig.prototype.getAxioProxyConfig = function (proxyUri) {
+        if (proxyUri) {
+            var proxyURL = new URL(proxyUri);
+            var axioAuth = proxyURL.username ? ({ username: proxyURL.username, password: proxyURL.password }) : null;
+            var proxyConfig = {
+                host: proxyURL.hostname,
+                port: Number.parseInt(proxyURL.port),
+                auth: axioAuth,
+                protocol: proxyURL.protocol.slice(0, -1)
+            };
+            return proxyConfig;
+        }
+    };
     return LoggerConfig;
 }());
 exports.LoggerConfig = LoggerConfig;

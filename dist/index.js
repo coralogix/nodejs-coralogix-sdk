@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Main package file
  *
@@ -10,10 +11,22 @@
  * @version     1.0.0
  * @since       1.0.0
  */
-"use strict";
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CoralogixCentralLogger = exports.CoralogixLogger = void 0;
 var constants_1 = require("./constants");
 var debug_logger_1 = require("./debug.logger");
 var log_1 = require("./entities/log");
@@ -30,7 +43,7 @@ var pjson = require("../package.json");
  * @description Create new instance of external logger
  * @param {string} category - Coralogix logger category
  */
-var CoralogixLogger = (function () {
+var CoralogixLogger = /** @class */ (function () {
     /**
      * @description Initialize new instance of CoralogixLogger object
      * @param {string} category - Coralogix logger category
@@ -114,23 +127,23 @@ var CoralogixLogger = (function () {
     CoralogixLogger.prototype.waitForFlush = function () {
         return CoralogixLogger.loggerManager.waitForFlush();
     };
+    /**
+     * @member {LoggerManager} loggerManager
+     * @memberOf CoralogixLogger
+     * @description Logger manager instance
+     * @static
+     * @private
+     */
+    CoralogixLogger.loggerManager = new logger_manager_1.LoggerManager();
     return CoralogixLogger;
 }());
-/**
- * @member {LoggerManager} loggerManager
- * @memberOf CoralogixLogger
- * @description Logger manager instance
- * @static
- * @private
- */
-CoralogixLogger.loggerManager = new logger_manager_1.LoggerManager();
 exports.CoralogixLogger = CoralogixLogger;
 /**
  * @class CoralogixCentralLogger
  * @classdesc Class CoralogixCentralLogger representing central external logger to Coralogix service
  * @description Create new instance of central external logger
  */
-var CoralogixCentralLogger = (function () {
+var CoralogixCentralLogger = /** @class */ (function () {
     function CoralogixCentralLogger() {
         /**
          * @member {Map<string, LoggerManager>} loggers
@@ -204,7 +217,7 @@ var CoralogixCentralLogger = (function () {
     return CoralogixCentralLogger;
 }());
 exports.CoralogixCentralLogger = CoralogixCentralLogger;
-__export(require("./constants"));
-__export(require("./debug.logger"));
-__export(require("./entities/log"));
-__export(require("./entities/LoggerConfig"));
+__exportStar(require("./constants"), exports);
+__exportStar(require("./debug.logger"), exports);
+__exportStar(require("./entities/log"), exports);
+__exportStar(require("./entities/LoggerConfig"), exports);

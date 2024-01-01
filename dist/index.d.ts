@@ -1,3 +1,15 @@
+/**
+ * Main package file
+ *
+ * @file        This file contains all functionality of current package
+ * @author      Yoni Farin <farin99@gmail.com>
+ * @author      Eldar Aliiev <eldar@coralogix.com>
+ * @link        https://coralogix.com/
+ * @copyright   Coralogix Ltd.
+ * @licence     Apache-2.0
+ * @version     1.0.0
+ * @since       1.0.0
+ */
 import { Log } from "./entities/log";
 import { LoggerConfig } from "./entities/LoggerConfig";
 /**
@@ -49,7 +61,7 @@ export declare class CoralogixLogger {
      * @static
      * @private
      */
-    private static sendWelcomeMessage(config);
+    private static sendWelcomeMessage;
     /**
      * @member {string} category
      * @memberOf CoralogixLogger

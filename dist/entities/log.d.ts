@@ -1,4 +1,16 @@
 /**
+ * Log record instance
+ *
+ * @file        This file contains log record object description
+ * @author      Yoni Farin <farin99@gmail.com>
+ * @author      Eldar Aliiev <eldar@coralogix.com>
+ * @link        https://coralogix.com/
+ * @copyright   Coralogix Ltd.
+ * @licence     Apache-2.0
+ * @version     1.0.0
+ * @since       1.0.0
+ */
+/**
  * @class Log
  * @classdesc Class Log representing log record container
  * @description Create new instance of log record container class
@@ -80,5 +92,5 @@ export declare enum Severity {
     info = 3,
     warning = 4,
     error = 5,
-    critical = 6,
+    critical = 6
 }

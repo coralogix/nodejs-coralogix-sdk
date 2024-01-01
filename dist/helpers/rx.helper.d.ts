@@ -10,7 +10,7 @@
  * @version     1.0.0
  * @since       1.0.0
  */
-import { Observable } from "rxjs";
+import { Observable } from "rxjs-compat";
 /**
  * @namespace rxHelper
  * @description Helper methods for RxJS
@@ -24,7 +24,7 @@ export declare namespace rxHelper {
      * @param pauser    - Pauser
      * @returns {Observable} Observable pauser object
      */
-    function makePausable(source: any, pauser: any): Observable<{}>;
+    function makePausable(source: any, pauser: any): Observable<unknown>;
     /**
      * @function makeReset
      * @description Make observable restarter object
@@ -33,5 +33,5 @@ export declare namespace rxHelper {
      * @param restarter - Restarter
      * @returns {Observable} Observable restarter object
      */
-    function makeReset(source: any, restarter: any): Observable<{}>;
+    function makeReset(source: any, restarter: any): Observable<unknown>;
 }

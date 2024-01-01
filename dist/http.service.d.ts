@@ -1,3 +1,15 @@
+/**
+ * HTTP helping methods
+ *
+ * @file        This file contains implementation of helper methods for HTTP
+ * @author      Yoni Farin <farin99@gmail.com>
+ * @author      Eldar Aliiev <eldar@coralogix.com>
+ * @link        https://coralogix.com/
+ * @copyright   Coralogix Ltd.
+ * @licence     Apache-2.0
+ * @version     1.0.0
+ * @since       1.0.0
+ */
 import { Observable } from "rxjs";
 import { LoggerConfig } from "./entities/LoggerConfig";
 /**

@@ -1,3 +1,4 @@
+"use strict";
 /**
  * HTTP helping methods
  *
@@ -10,8 +11,9 @@
  * @version     1.0.0
  * @since       1.0.0
  */
-"use strict";
-var request = require("request");
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.HttpHelper = void 0;
+var axios_1 = require("axios");
 var rxjs_1 = require("rxjs");
 var constants_1 = require("./constants");
 /**
@@ -30,29 +32,24 @@ var HttpHelper;
      */
     function sendBulk(jsonData, config) {
         var options = {
-            body: jsonData,
-            gzip: true,
-            json: true,
-            method: "POST",
+            decompress: true,
             timeout: constants_1.Constants.HTTP_TIMEOUT,
-            url: constants_1.Constants.CORALOGIX_LOG_URL,
         };
         if (config.proxyUri) {
             options.proxy = config.proxyUri;
         }
         return rxjs_1.Observable.create(function (observer) {
-            request(options, function (error, response, body) {
-                if (error || response.statusCode < 200 || response.statusCode > 299) {
-                    if (!error) {
-                        error = { code: response.statusCode };
-                    }
-                    observer.error(error);
+            axios_1.default.post(constants_1.Constants.CORALOGIX_LOG_URL, jsonData, options)
+                .then(function (response) {
+                if (response.status < 200 || response.status > 299) {
+                    observer.error({ code: response.status });
                 }
                 else {
-                    observer.next(new HTTPResponse(response, body));
+                    observer.next(new HTTPResponse(response, response.data.json));
                 }
-                observer.complete();
-            });
+            }).catch(function (error) {
+                observer.error(error);
+            }).finally(function () { return observer.complete(); });
         });
     }
     HttpHelper.sendBulk = sendBulk;
@@ -64,7 +61,7 @@ var HttpHelper;
      * @param {any} response    - Response data
      * @param {any} body        - Response body
      */
-    var HTTPResponse = (function () {
+    var HTTPResponse = /** @class */ (function () {
         /**
          * @description Initialize new instance of HTTPResponse object
          * @param {any} response    - Response data
@@ -77,4 +74,4 @@ var HttpHelper;
         return HTTPResponse;
     }());
     HttpHelper.HTTPResponse = HTTPResponse;
-})(HttpHelper = exports.HttpHelper || (exports.HttpHelper = {}));
+})(HttpHelper || (exports.HttpHelper = HttpHelper = {}));

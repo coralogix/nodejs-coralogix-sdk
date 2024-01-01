@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Log record instance
  *
@@ -10,7 +11,8 @@
  * @version     1.0.0
  * @since       1.0.0
  */
-"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Severity = exports.Log = void 0;
 var constants_1 = require("../constants");
 var stringify = require("json-stringify-safe");
 /**
@@ -19,7 +21,7 @@ var stringify = require("json-stringify-safe");
  * @description Create new instance of log record container class
  * @param {object} [data] - Log record data
  */
-var Log = (function () {
+var Log = /** @class */ (function () {
     /**
      * @description Initialize new instance of log record container class
      * @param {object} [data] - Log record data
@@ -78,4 +80,4 @@ var Severity;
     Severity[Severity["warning"] = 4] = "warning";
     Severity[Severity["error"] = 5] = "error";
     Severity[Severity["critical"] = 6] = "critical";
-})(Severity = exports.Severity || (exports.Severity = {}));
+})(Severity || (exports.Severity = Severity = {}));

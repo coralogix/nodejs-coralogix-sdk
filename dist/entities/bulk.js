@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Log records bulk
  *
@@ -10,7 +11,8 @@
  * @version     1.0.0
  * @since       1.0.0
  */
-"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Bulk = void 0;
 var constants_1 = require("../constants");
 var ip_helper_1 = require("../helpers/ip.helper");
 /**
@@ -18,7 +20,7 @@ var ip_helper_1 = require("../helpers/ip.helper");
  * @classdesc Class Bulk representing logs bulk container
  * @description Create new instance of logs bulk container class
  */
-var Bulk = (function () {
+var Bulk = /** @class */ (function () {
     function Bulk() {
         /**
          * @member {string} applicationName

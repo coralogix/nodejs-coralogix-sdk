@@ -1,4 +1,16 @@
 /**
+ * IP-address helper functions
+ *
+ * @file        This file contains helper functions for work with IP
+ * @author      Yoni Farin <farin99@gmail.com>
+ * @author      Eldar Aliiev <eldar@coralogix.com>
+ * @link        https://coralogix.com/
+ * @copyright   Coralogix Ltd.
+ * @licence     Apache-2.0
+ * @version     1.0.0
+ * @since       1.0.0
+ */
+/**
  * @namespace IPHelper
  * @description IP-address helper methods namespace
  */

@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Internal debug logger
  *
@@ -10,13 +11,14 @@
  * @version     1.0.0
  * @since       1.0.0
  */
-"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.DebugLogger = void 0;
 /**
  * @class DebugLogger
  * @classdesc Class DebugLogger representing internal logger
  * @description Create new instance of internal debugger interface
  */
-var DebugLogger = (function () {
+var DebugLogger = /** @class */ (function () {
     function DebugLogger() {
     }
     /**
@@ -43,15 +45,15 @@ var DebugLogger = (function () {
         }
         return false;
     };
+    /**
+     * @member {boolean} isDebug
+     * @memberOf DebugLogger
+     * @description Debug mode status
+     * @default false
+     * @static
+     * @public
+     */
+    DebugLogger.isDebug = false;
     return DebugLogger;
 }());
-/**
- * @member {boolean} isDebug
- * @memberOf DebugLogger
- * @description Debug mode status
- * @default false
- * @static
- * @public
- */
-DebugLogger.isDebug = false;
 exports.DebugLogger = DebugLogger;

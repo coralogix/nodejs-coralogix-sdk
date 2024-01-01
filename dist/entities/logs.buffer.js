@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Logger configuration object
  *
@@ -10,7 +11,8 @@
  * @version     1.0.0
  * @since       1.0.0
  */
-"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.LogsBuffer = void 0;
 /**
  * @name sizeof
  * @constant {function}
@@ -23,7 +25,7 @@ var sizeof = require("object-sizeof");
  * @description Create new instance of logs buffer class
  * @param {Array<Log>} [logs] - Logs collection
  */
-var LogsBuffer = (function () {
+var LogsBuffer = /** @class */ (function () {
     /**
      * @description Create new instance of logs buffer class
      * @param {Array<Log>} [logs] - Logs collection
@@ -42,7 +44,7 @@ var LogsBuffer = (function () {
         get: function () {
             return sizeof(this.logs);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return LogsBuffer;
