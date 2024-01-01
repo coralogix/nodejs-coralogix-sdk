@@ -11,8 +11,7 @@
  * @since       1.0.0
  */
 
-import * as request from "request";
-import {CoreOptions, UrlOptions} from "request";
+import axios, {AxiosRequestConfig} from 'axios';
 import {Observable} from "rxjs";
 import {Constants} from "./constants";
 import {LoggerConfig} from "./entities/LoggerConfig";
@@ -31,30 +30,25 @@ export namespace HttpHelper {
      * @returns {Observable<HTTPResponse>} Valid HTTP response object
      */
     export function sendBulk(jsonData: any, config: LoggerConfig): Observable<HTTPResponse> {
-        const options: CoreOptions & UrlOptions = {
-            body: jsonData,
-            gzip: true,
-            json: true,
-            method: "POST",
+        const options: AxiosRequestConfig = {
+            decompress: true,
             timeout: Constants.HTTP_TIMEOUT,
-            url: Constants.CORALOGIX_LOG_URL,
         };
         if (config.proxyUri) {
             options.proxy = config.proxyUri;
         }
 
         return Observable.create(observer => {
-            request(options, (error, response, body) => {
-                if (error || response.statusCode < 200 || response.statusCode > 299) {
-                    if (!error) {
-                        error = {code: response.statusCode};
-                    }
-                    observer.error(error);
+            axios.post(Constants.CORALOGIX_LOG_URL, jsonData, options)
+              .then(response => {
+                if (response.status < 200 || response.status > 299) {
+                  observer.error({code: response.status})
                 } else {
-                    observer.next(new HTTPResponse(response, body));
+                  observer.next(new HTTPResponse(response, response.data.json));
                 }
-                observer.complete();
-            });
+              }).catch(error => {
+                observer.error(error);
+              }).finally(() => observer.complete());
         });
     }
 

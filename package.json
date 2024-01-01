@@ -60,21 +60,22 @@
     "t": "tsc -p src ; node dist/tester.js"
   },
   "devDependencies": {
-    "@types/node": "6.0.52",
-    "@types/request": "0.0.36",
+    "@types/node": "^13.11.1",
     "chai": "^4.1.2",
-    "jsdoc": "^3.5.5",
-    "mocha": "^5.2.0",
-    "nyc": "^11.8.0",
-    "tslint": "^5.10.0",
-    "typescript": "2.1.4"
+    "jsdoc": "^4.0.2",
+    "mocha": "^10.2.0",
+    "nyc": "^15.1.0",
+    "tslint": "^5.20.1",
+    "typescript": "^5.3.3"
   },
   "dependencies": {
+    "axios": "^1.6.3",
     "form-data": "^2.5.0",
     "json-stringify-safe": "5.0.1",
     "object-sizeof": "1.1.1",
-    "request": "2.88.0",
-    "rxjs": "5.4.0"
+    "proxy-from-env": "^1.1.0",
+    "rxjs": "^6.6.7",
+    "rxjs-compat": "^6.6.7"
   },
   "directories": {
     "doc": "docs",
