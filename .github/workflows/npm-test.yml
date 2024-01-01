@@ -1,0 +1,25 @@
+name: Node.js Test
+
+#change to this when you need to publish on pr level
+on:
+  pull_request:
+    paths:
+      - '**.js'
+      - '**.ts'
+      - .github/workflows/npm-test.yml
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      #- uses: webfactory/ssh-agent@v0.8.0
+      #  with:
+      #    ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Install dependencies
+        run: npm install
+      - name: Run tests
+        run: npm run test
