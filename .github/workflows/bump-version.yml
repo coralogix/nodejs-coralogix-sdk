@@ -1,8 +1,11 @@
 on:
-  push:
+  pull_request:
     branches:
       - master
-      - bugfix/release-worlkflow
+#on:
+#  push:
+#    branches:
+#      - master
 
 name: Bump Version
 
