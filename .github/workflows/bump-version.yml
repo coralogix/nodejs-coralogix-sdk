@@ -10,7 +10,6 @@ on:
 #  push:
 #    branches:
 #      - master
-
 name: Bump Version
 
 # Avoid race conditions with tags release
