@@ -83,9 +83,9 @@ export class Constants {
      * @description Coralogix logs API endpoint (production)
      * @static
      * @public
-     * @default https://api.coralogix.com:443/api/v1/logs
+     * @default https://ingress.coralogix.com:443/api/v1/logs
      */
-    public static PROD_URL: string = "https://api.coralogix.com:443/api/v1/logs";
+    public static PROD_URL: string = "https://ingress.coralogix.com:443/api/v1/logs";
 
     /**
      * @member {string} CORALOGIX_LOG_URL
