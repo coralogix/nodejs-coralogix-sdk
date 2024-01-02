@@ -102,7 +102,7 @@ export declare class Constants {
      * @description Default private key for Coralogix account
      * @static
      * @public
-     * @default 9626c7dd-8174-5015-a3fe-5572e042b6d9
+     * @default ********
      */
     static FAILED_PRIVATE_KEY: string;
     /**
