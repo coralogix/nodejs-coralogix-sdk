@@ -41,7 +41,6 @@ jobs:
       - name: Build
         run: npm run build
       - name: Publish to npm
-        working-directory: dist/libs/browser
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
