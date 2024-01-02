@@ -2,6 +2,7 @@ on:
   push:
     branches:
       - master
+      - bugfix/release-worlkflow
 
 name: Bump Version
 
@@ -45,7 +46,7 @@ jobs:
           git push --follow-tags origin chore/${{ github.run_number }}
           gh pr create --base master --head chore/${{ github.run_number }} --fill
           gh api -XPOST /repos/coralogix/nodejs-coralogix-sdk/statuses/$(git rev-parse HEAD) -f state=success -f context="ticket-id-validator"
-          gh api -XPOST /repos/coralogix/nodejs-coralogix-sdk/statuses/$(git rev-parse HEAD) -f state=success -f context="All Status Checks"
+          gh api -XPOST /repos/coralogix/nodejs-coralogix-sdk/statuses/$(git rev-parse HEAD) -f state=success -f context="test"
           gh pr merge --delete-branch --admin --squash chore/${{ github.run_number }}
           git checkout master
           git pull
