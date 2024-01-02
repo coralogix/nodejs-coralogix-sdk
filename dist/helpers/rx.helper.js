@@ -1,3 +1,4 @@
+"use strict";
 /**
  * rxHelper functions
  *
@@ -10,8 +11,9 @@
  * @version     1.0.0
  * @since       1.0.0
  */
-"use strict";
-var rxjs_1 = require("rxjs");
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.rxHelper = void 0;
+var rxjs_compat_1 = require("rxjs-compat");
 /**
  * @namespace rxHelper
  * @description Helper methods for RxJS
@@ -27,9 +29,9 @@ var rxHelper;
      * @returns {Observable} Observable pauser object
      */
     function makePausable(source, pauser) {
-        return rxjs_1.Observable.from(pauser)
+        return rxjs_compat_1.Observable.from(pauser)
             .startWith(false)
-            .switchMap(function (pause) { return pause ? rxjs_1.Observable.never() : source; });
+            .switchMap(function (pause) { return pause ? rxjs_compat_1.Observable.never() : source; });
     }
     rxHelper.makePausable = makePausable;
     /**
@@ -41,9 +43,9 @@ var rxHelper;
      * @returns {Observable} Observable restarter object
      */
     function makeReset(source, restarter) {
-        return rxjs_1.Observable.from(restarter)
+        return rxjs_compat_1.Observable.from(restarter)
             .startWith(true)
             .switchMapTo(source);
     }
     rxHelper.makeReset = makeReset;
-})(rxHelper = exports.rxHelper || (exports.rxHelper = {}));
+})(rxHelper || (exports.rxHelper = rxHelper = {}));

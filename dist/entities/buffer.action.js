@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Buffer Action instance
  *
@@ -10,7 +11,8 @@
  * @version     1.0.0
  * @since       1.0.0
  */
-"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BufferAction = void 0;
 /**
  * @class BufferAction
  * @classdesc Class BufferAction representing buffer action container
@@ -18,7 +20,7 @@
  * @param {string} type - Type of action
  * @param {Log} payload - Action payload data
  */
-var BufferAction = (function () {
+var BufferAction = /** @class */ (function () {
     /**
      * @description Initialize new instance of buffer action container class
      * @param {string} type - Type of action

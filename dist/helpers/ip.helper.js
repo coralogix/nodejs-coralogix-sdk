@@ -1,3 +1,4 @@
+"use strict";
 /**
  * IP-address helper functions
  *
@@ -10,7 +11,8 @@
  * @version     1.0.0
  * @since       1.0.0
  */
-"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.IPHelper = void 0;
 var os = require("os");
 var debug_logger_1 = require("../debug.logger");
 var hostname;
@@ -62,4 +64,4 @@ var IPHelper;
         return hostname;
     }
     IPHelper.getComputerName = getComputerName;
-})(IPHelper = exports.IPHelper || (exports.IPHelper = {}));
+})(IPHelper || (exports.IPHelper = IPHelper = {}));

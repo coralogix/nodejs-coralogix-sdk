@@ -83,9 +83,9 @@ export class Constants {
      * @description Coralogix logs API endpoint (production)
      * @static
      * @public
-     * @default https://api.coralogix.com:443/api/v1/logs
+     * @default https://ingress.coralogix.com:443/api/v1/logs
      */
-    public static PROD_URL: string = "https://api.coralogix.com:443/api/v1/logs";
+    public static PROD_URL: string = "https://ingress.coralogix.com:443/api/v1/logs";
 
     /**
      * @member {string} CORALOGIX_LOG_URL
@@ -112,9 +112,9 @@ export class Constants {
      * @description Default private key for Coralogix account
      * @static
      * @public
-     * @default 9626c7dd-8174-5015-a3fe-5572e042b6d9
+     * @default ********
      */
-    public static FAILED_PRIVATE_KEY: string = "9626c7dd-8174-5015-a3fe-5572e042b6d9";
+    public static FAILED_PRIVATE_KEY: string = "*************";
 
     /**
      * @member {string} NO_APP_NAME

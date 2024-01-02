@@ -3,7 +3,7 @@
 
 // // global configuration for coralogix
 // var config = {
-//     privateKey: "6fb78c92-11af-314f-49d6-b6dbaaab17ba",
+//     privateKey: "*************",
 //     applicationName: "Yoni TEST",
 //     subsystemName: "YOUR SUBSYSTEM",
 // };
@@ -32,8 +32,8 @@ const winston = require("winston");
 const stackTrace = require("stack-trace");
 const CoralogixWinston = require("coralogix-logger-winston");
 
-// const test_key = "6411e033-3439-d71c-542b-0d45419d6b30";
-// const prod_key = "6fb78c92-11af-314f-49d6-b6dbaaab17ba";
+// const test_key = "*************";
+// const prod_key = "*************";
 
 
 // const config = {
@@ -93,12 +93,12 @@ const CoralogixWinston = require("coralogix-logger-winston");
 	};
 
 	let consoleLoggerConfig = Object.assign({}, baseLoggerConfig);
-	let loggerTransports = [		
+	let loggerTransports = [
 		new (winston.transports.Console)(consoleLoggerConfig)
 	];
-	
+
     let coralogixLoggerConfig = Object.assign({}, baseLoggerConfig, {
-        privateKey: '6fb78c92-11af-314f-49d6-b6dbaaab17ba',
+        privateKey: '*************',
         applicationName: 'aaaaaa',
         subsystemName: "external-webapp",
         json: true,
@@ -107,7 +107,7 @@ const CoralogixWinston = require("coralogix-logger-winston");
     CoralogixWinston.CoralogixTransport.configure(coralogixLoggerConfig);
     let coralogixLoggerConfigCrap = Object.assign({}, baseLoggerConfig, {category: "CORALOGIX"});
     loggerTransports.push(new CoralogixWinston.CoralogixTransport(coralogixLoggerConfigCrap));
-	
+
 
 	let logger = new (winston.Logger)({transports: loggerTransports});
 

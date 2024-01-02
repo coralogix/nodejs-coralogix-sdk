@@ -1,7 +1,7 @@
 import * as bunyan from "bunyan";
 import {CoralogixStream} from "./coralogix-bunyan.stream";
 
-const prod_key = "9626c7dd-8174-5015-a3fe-5572e042b6d9";
+const prod_key = "*************;
 
 const config = {
     privateKey: prod_key,

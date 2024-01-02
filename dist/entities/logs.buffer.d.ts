@@ -25,7 +25,7 @@ export declare class LogsBuffer {
      * @public
      * @returns {number} Size of logs collection
      */
-    readonly size: number;
+    get size(): number;
     /**
      * @member {Array<Log>} logs
      * @memberOf LoggerConfig

@@ -76,7 +76,7 @@ export declare class Constants {
      * @description Coralogix logs API endpoint (production)
      * @static
      * @public
-     * @default https://api.coralogix.com:443/api/v1/logs
+     * @default https://ingress.coralogix.com:443/api/v1/logs
      */
     static PROD_URL: string;
     /**

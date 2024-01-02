@@ -11,7 +11,7 @@
  * @since       1.0.0
  */
 
-import {Observable} from "rxjs";
+import {Observable} from "rxjs-compat";
 
 /**
  * @namespace rxHelper

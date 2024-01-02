@@ -1,3 +1,15 @@
+/**
+ * Logger manager file
+ *
+ * @file        This file contains logging queue manager
+ * @author      Yoni Farin <farin99@gmail.com>
+ * @author      Eldar Aliiev <eldar@coralogix.com>
+ * @link        https://coralogix.com/
+ * @copyright   Coralogix Ltd.
+ * @licence     Apache-2.0
+ * @version     1.0.0
+ * @since       1.0.0
+ */
 import { Log } from "./entities/log";
 import { LoggerConfig } from "./entities/LoggerConfig";
 /**
@@ -120,7 +132,7 @@ export declare class LoggerManager {
      * @param {Log[]} buffer - Logs buffer
      * @private
      */
-    private sendBulk(buffer);
+    private sendBulk;
     /**
      * @method cleanAfterSend
      * @description On buffer send completed (success of failed) free the buffer size
@@ -128,7 +140,7 @@ export declare class LoggerManager {
      * @param {Log[]} sentBuffer - Logs buffer
      * @private
      */
-    private cleanAfterSend(sentBuffer);
+    private cleanAfterSend;
     /**
      * @method cleanAfterSend
      * @description Return an on error observable that will retry
@@ -140,5 +152,5 @@ export declare class LoggerManager {
      * @private
      * @returns {Observable<T>} Logger manager observable object
      */
-    private retryObservable(errors$);
+    private retryObservable;
 }

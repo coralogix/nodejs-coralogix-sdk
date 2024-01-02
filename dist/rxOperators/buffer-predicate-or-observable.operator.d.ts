@@ -105,5 +105,5 @@ export declare class BufferPredicateOrObservable<T> extends OuterSubscriber<T, a
      * @memberOf BufferPredicateOrObservable
      * @private
      */
-    private emitBuffer();
+    private emitBuffer;
 }

@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Logger manager file
  *
@@ -10,7 +11,8 @@
  * @version     1.0.0
  * @since       1.0.0
  */
-"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.LoggerManager = void 0;
 var rxjs_1 = require("rxjs");
 var constants_1 = require("./constants");
 var debug_logger_1 = require("./debug.logger");
@@ -30,7 +32,7 @@ var sizeof = require("object-sizeof");
  * @classdesc Class LoggerManager representing logging queue manager
  * @description Create new instance of logging queue manager
  */
-var LoggerManager = (function () {
+var LoggerManager = /** @class */ (function () {
     /**
      * @description Initialize new instance of LoggerManager object
      */
@@ -85,7 +87,7 @@ var LoggerManager = (function () {
         if (!this.logStreamSubscription) {
             return Promise.resolve(); // there are no pending logs
         }
-        if (!this.flushedPromise) {
+        if (!this.flushedPromise) { // there are pending logs - wait for them
             this.flushedPromise = new Promise(function (resolve) {
                 _this.flushPromiseFulfilled = resolve;
             });

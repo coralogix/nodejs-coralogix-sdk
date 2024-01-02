@@ -11,6 +11,7 @@
  * @since       1.0.0
  */
 
+import {AxiosBasicCredentials, AxiosProxyConfig} from "axios";
 import {Constants} from "../constants";
 import {IPHelper} from "../helpers/ip.helper";
 
@@ -67,14 +68,27 @@ export class LoggerConfig {
     public debug: boolean = false;
 
     /**
-     * @member {string|undefined} proxyUri
+     * @member {AxiosProxyConfig|undefined} proxyUri
      * @memberOf LoggerConfig
      * @description Proxy uri
      * @default undefined
      * @public
      */
-    public proxyUri?: string;
+    public proxyUri?: AxiosProxyConfig;
 
+    private getAxioProxyConfig(proxyUri?: string): AxiosProxyConfig | undefined {
+      if (proxyUri) {
+        const proxyURL = new URL(proxyUri)
+        const axioAuth: AxiosBasicCredentials = proxyURL.username ? ({username: proxyURL.username, password: proxyURL.password}) : null;
+        const proxyConfig: AxiosProxyConfig = {
+          host: proxyURL.hostname,
+          port: Number.parseInt(proxyURL.port),
+          auth: axioAuth,
+          protocol: proxyURL.protocol.slice(0, -1)
+        }
+        return proxyConfig
+      }
+    }
     /**
      * @description Initialize new instance of logger configuration container class
      * @param {object} [config] - Logger configuration parameters
@@ -85,6 +99,6 @@ export class LoggerConfig {
         this.subsystemName = config.subsystemName || this.subsystemName;
         this.computerName = config.computerName || this.computerName;
         this.debug = config.debug;
-        this.proxyUri = config.proxyUri;
+        this.proxyUri = this.getAxioProxyConfig(config.proxyUri);
     }
 }
