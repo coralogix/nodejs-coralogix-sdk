@@ -1,16 +1,4 @@
 /**
- * Coralogix constants
- *
- * @file        This file contains default values for Coralogix Node.js SDK
- * @author      Yoni Farin <farin99@gmail.com>
- * @author      Eldar Aliiev <eldar@coralogix.com>
- * @link        https://coralogix.com/
- * @copyright   Coralogix Ltd.
- * @licence     Apache-2.0
- * @version     1.0.0
- * @since       1.0.0
- */
-/**
  * @class Constants
  * @classdesc Class Constants representing default values for Coralogix logger
  * @description Create new instance of configuration container class
@@ -102,7 +90,7 @@ export declare class Constants {
      * @description Default private key for Coralogix account
      * @static
      * @public
-     * @default 9626c7dd-8174-5015-a3fe-5572e042b6d9
+     * @default ********
      */
     static FAILED_PRIVATE_KEY: string;
     /**

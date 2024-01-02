@@ -10,7 +10,7 @@
  * @version     1.0.0
  * @since       1.0.0
  */
-
+import {SDK_VERSION} from "./version";
 /**
  * @class Constants
  * @classdesc Class Constants representing default values for Coralogix logger
@@ -25,7 +25,7 @@ export class Constants {
      * @public
      * @default 2.0.0
      */
-    public static SDK_VERSION: string = "2.0.0";
+    public static SDK_VERSION: string = SDK_VERSION;
 
     /**
      * @member {number} MAX_LOG_BUFFER_SIZE

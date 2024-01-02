@@ -1,4 +1,6 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Constants = void 0;
 /**
  * Coralogix constants
  *
@@ -11,8 +13,7 @@
  * @version     1.0.0
  * @since       1.0.0
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Constants = void 0;
+var version_1 = require("./version");
 /**
  * @class Constants
  * @classdesc Class Constants representing default values for Coralogix logger
@@ -29,7 +30,7 @@ var Constants = /** @class */ (function () {
      * @public
      * @default 2.0.0
      */
-    Constants.SDK_VERSION = "2.0.0";
+    Constants.SDK_VERSION = version_1.SDK_VERSION;
     /**
      * @member {number} MAX_LOG_BUFFER_SIZE
      * @memberOf Constants
@@ -107,9 +108,9 @@ var Constants = /** @class */ (function () {
      * @description Default private key for Coralogix account
      * @static
      * @public
-     * @default 9626c7dd-8174-5015-a3fe-5572e042b6d9
+     * @default ********
      */
-    Constants.FAILED_PRIVATE_KEY = "9626c7dd-8174-5015-a3fe-5572e042b6d9";
+    Constants.FAILED_PRIVATE_KEY = "*************";
     /**
      * @member {string} NO_APP_NAME
      * @memberOf Constants
