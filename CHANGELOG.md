@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.98](https://github.com/coralogix/nodejs-coralogix-sdk/compare/v1.1.97...v1.1.98) (2024-01-02)
+
 ### [1.1.97](https://github.com/coralogix/nodejs-coralogix-sdk/compare/v1.1.96...v1.1.97) (2024-01-02)
 
 ### [1.1.96](https://github.com/coralogix/nodejs-coralogix-sdk/compare/v1.1.95...v1.1.96) (2024-01-02)
