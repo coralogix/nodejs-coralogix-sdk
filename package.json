@@ -1,7 +1,7 @@
 {
   "name": "coralogix-logger",
   "title": "Coralogix Node.js SDK",
-  "version": "1.1.28",
+  "version": "1.1.40",
   "description": "Node.js SDK to send your logs to Coralogix",
   "homepage": "https://coralogix.com/",
   "license": "Apache-2.0",
@@ -57,7 +57,8 @@
     "release": "npm run build; npm run docs",
     "test": "nyc --reporter=lcov --reporter=text mocha --recursive",
     "publicate": "npm run release; npm version patch; npm publish ",
-    "t": "tsc -p src ; node dist/tester.js"
+    "t": "tsc -p src ; node dist/tester.js",
+    "update-version": "node scripts/version-update.js"
   },
   "devDependencies": {
     "@types/node": "^13.11.1",
