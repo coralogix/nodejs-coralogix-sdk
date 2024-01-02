@@ -1,8 +1,8 @@
 const winston = require("winston");
 const stackTrace = require("stack-trace");
 const CoralogixTransport = require("./coralogix-winston.transport").CoralogixTransport;
-const test_key = "6411e033-3439-d71c-542b-0d45419d6b30";
-const prod_key = "6fb78c92-11af-314f-49d6-b6dbaaab17ba";
+const test_key = "*************";
+const prod_key = "*************";
 
 
 const config = {
@@ -75,7 +75,7 @@ winston.info('your message',{category:"ZZZZZ",methodName:"MMMMMMMM",threadId:"II
 // 	];
 //
 //     let coralogixLoggerConfig = Object.assign({}, baseLoggerConfig, {
-//         privateKey: '6fb78c92-11af-314f-49d6-b6dbaaab17ba',
+//         privateKey: '*************',
 //         applicationName: 'aaaaaa',
 //         subsystemName: "external-webapp",
 //         json: true,

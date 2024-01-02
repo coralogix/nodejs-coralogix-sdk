@@ -8,7 +8,7 @@ var logger_config_entry = require('../../dist/entities/LoggerConfig');
 describe('LoggerConfig', function () {
     describe('#LoggerConfig()', function () {
         it('should fill logger configuration with user values', function () {
-            var privateKey = 'ca290f7c-460b-4e50-a64b-460d9b373086';
+            var privateKey = '****************';
             var applicationName = 'NodeJS test';
             var subsystemName = 'Test subsystem';
             var computerName = 'Test host';
@@ -45,7 +45,7 @@ describe('LoggerConfig', function () {
         });
 
         it('should fill logger configuration with default application name', function () {
-            var privateKey = 'ca290f7c-460b-4e50-a64b-460d9b373086';
+            var privateKey = '****************';
             var applicationName = null;
             var subsystemName = 'Test subsystem';
 
@@ -62,7 +62,7 @@ describe('LoggerConfig', function () {
         });
 
         it('should fill logger configuration with default subsystem name', function () {
-            var privateKey = 'ca290f7c-460b-4e50-a64b-460d9b373086';
+            var privateKey = '****************';
             var applicationName = 'NodeJS test';
             var subsystemName = null;
 
@@ -79,7 +79,7 @@ describe('LoggerConfig', function () {
         });
 
         it('should fill logger configuration with default computer name', function () {
-            var privateKey = 'ca290f7c-460b-4e50-a64b-460d9b373086';
+            var privateKey = '****************';
             var applicationName = 'NodeJS test';
             var subsystemName = 'Test subsystem';
 

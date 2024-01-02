@@ -3,7 +3,7 @@ var Coralogix = require("./dist");
 // global confing for application name, private key, subsystem name
 const config = new Coralogix.LoggerConfig({
     applicationName: "node tester",
-    privateKey: "********",
+    privateKey: "*************",
     subsystemName: "node tester sub",
     proxyUri: "http://127.0.0.1:9999/",
     debug: true

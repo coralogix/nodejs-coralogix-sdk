@@ -112,9 +112,9 @@ export class Constants {
      * @description Default private key for Coralogix account
      * @static
      * @public
-     * @default 9626c7dd-8174-5015-a3fe-5572e042b6d9
+     * @default ********
      */
-    public static FAILED_PRIVATE_KEY: string = "9626c7dd-8174-5015-a3fe-5572e042b6d9";
+    public static FAILED_PRIVATE_KEY: string = "*************";
 
     /**
      * @member {string} NO_APP_NAME

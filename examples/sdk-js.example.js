@@ -2,7 +2,7 @@ var Coralogix = require("coralogix-logger");
 
 // global confing
 const config = new Coralogix.LoggerConfig({
-    privateKey:"9626c7dd-8174-5015-a3fe-5572e042b6d9",
+    privateKey:"*************",
 });
 
 Coralogix.CoralogixLogger.configure(config);

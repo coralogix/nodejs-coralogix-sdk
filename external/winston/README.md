@@ -19,7 +19,7 @@ var CoralogixWinston = require("coralogix-logger-winston");
 
 // global configuration for coralogix
 var config = {
-    privateKey: "9626c7dd-8174-5015-a3fe-5572e042b6d9",
+    privateKey: "*************,
     applicationName: "YOUR APP NAME",
     subsystemName: "YOUR SUBSYSTEM",
 };
@@ -35,7 +35,7 @@ winston.configure({
 
 // use winston
 winston.info("use winston to send your logs to coralogix");
- 
+
 ```
 
 
@@ -44,7 +44,7 @@ winston.info("use winston to send your logs to coralogix");
 import * as winston from "winston";
 import {CoralogixTransport} from "coralogix-logger-winston";
 
-// global configuration for private key, application name, subsystem name 
+// global configuration for private key, application name, subsystem name
 const config = {
     privateKey: "YOUR PRIVATE KEY",
     applicationName: "YOUR APP NAME",

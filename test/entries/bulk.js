@@ -18,7 +18,7 @@ describe('Bulk', function () {
 
     describe('#bulkFromConfig()', function () {
         it('should fill bulk with user values', function () {
-            var privateKey = 'ca290f7c-460b-4e50-a64b-460d9b373086';
+            var privateKey = '*************';
             var applicationName = 'NodeJS test';
             var subsystemName = 'Test subsystem';
             var computerName = 'Test host';
@@ -52,7 +52,7 @@ describe('Bulk', function () {
         });
 
         it('should fill bulk with default application name', function () {
-            var privateKey = 'ca290f7c-460b-4e50-a64b-460d9b373086';
+            var privateKey = '*************';
             var subsystemName = 'Test subsystem';
 
             var bulk = bulk_entry.Bulk.bulkFromConfig({
@@ -67,7 +67,7 @@ describe('Bulk', function () {
         });
 
         it('should fill bulk with default subsystem name', function () {
-            var privateKey = 'ca290f7c-460b-4e50-a64b-460d9b373086';
+            var privateKey = '*************';
             var applicationName = 'NodeJS test';
 
             var bulk = bulk_entry.Bulk.bulkFromConfig({
@@ -82,7 +82,7 @@ describe('Bulk', function () {
         });
 
         it('should fill bulk with default computer name', function () {
-            var privateKey = 'ca290f7c-460b-4e50-a64b-460d9b373086';
+            var privateKey = '*************';
             var applicationName = 'NodeJS test';
             var subsystemName = 'Test subsystem';
 
