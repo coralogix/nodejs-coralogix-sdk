@@ -1,0 +1,9 @@
+{
+  "releaseCommitMessageFormat": "chore(release): {{currentTag}} [skip actions] [skip-ci]",
+  "bumpFiles": [
+    {
+      "filename": "package.json",
+      "type": "json"
+    }
+  ]
+}
