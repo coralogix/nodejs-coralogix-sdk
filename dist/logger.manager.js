@@ -18,9 +18,7 @@ var constants_1 = require("./constants");
 var debug_logger_1 = require("./debug.logger");
 var bulk_1 = require("./entities/bulk");
 var log_1 = require("./entities/log");
-var rx_helper_1 = require("./helpers/rx.helper");
 var http_service_1 = require("./http.service");
-var buffer_predicate_or_observable_operator_1 = require("./rxOperators/buffer-predicate-or-observable.operator");
 /**
  * @name sizeof
  * @constant {function}
@@ -63,16 +61,17 @@ var LoggerManager = /** @class */ (function () {
          */
         this.flush$ = new rxjs_1.Subject();
         debug_logger_1.DebugLogger.d("starting log-manager");
-        this.logBulkObs$ = rxjs_1.Observable.create(function (observer) { return _this.addLogStream = observer; })
-            .do(function (log) { return log_1.Log.fillDefaultValidValues(log); })
-            .do(function (log) { return _this.bufferSize >= constants_1.Constants.MAX_LOG_BUFFER_SIZE ? debug_logger_1.DebugLogger.d("max logs exceeded, dropping log") : null; })
-            .filter(function (log) { return _this.bufferSize < constants_1.Constants.MAX_LOG_BUFFER_SIZE; })
-            .do(function (log) { return _this.bufferSize += sizeof(log); })
-            .lift(new buffer_predicate_or_observable_operator_1.BufferPredicateOrObservableOperator(function (buffer) { return sizeof(buffer) > constants_1.Constants.MAX_LOG_CHUNK_SIZE; }, rxjs_1.Observable.merge(this.flush$, rx_helper_1.rxHelper.makePausable(rxjs_1.Observable.interval(constants_1.Constants.NORMAL_SEND_SPEED_INTERVAL), this.pauser$))))
-            .do(function () { return _this.pauser$.next(false); }) // stop the interval until request completed
-            .flatMap(function (buffer) { return _this.sendBulk(buffer)
-            .retryWhen(function (errors$) { return _this.retryObservable(errors$); })
-            .finally(function () { return _this.cleanAfterSend(buffer); }); }); // clean buffer and start timer
+        this.logBulkObs$ = rxjs_1.Observable.create(function (observer) { return _this.addLogStream = observer; }).pipe((0, rxjs_1.tap)(function (log) {
+            debug_logger_1.DebugLogger.d("tap1");
+            return log_1.Log.fillDefaultValidValues(log);
+        }), (0, rxjs_1.tap)(function (log) {
+            debug_logger_1.DebugLogger.d("tap2");
+            _this.bufferSize >= constants_1.Constants.MAX_LOG_BUFFER_SIZE ? debug_logger_1.DebugLogger.d("max logs exceeded, dropping log") : null;
+        }), (0, rxjs_1.filter)(function (log) { return _this.bufferSize < constants_1.Constants.MAX_LOG_BUFFER_SIZE; }), (0, rxjs_1.tap)(function (log) { return _this.bufferSize += sizeof(log); }), (0, rxjs_1.bufferTime)(constants_1.Constants.NORMAL_SEND_SPEED_INTERVAL, undefined, constants_1.Constants.MAX_LOG_CHUNK_SIZE, undefined))
+            .pipe((0, rxjs_1.tap)(function () { return _this.pauser$.next(false); }), // stop the interval until request completed
+        (0, rxjs_1.flatMap)(function (buffer) { return _this.sendBulk(buffer)
+            .pipe((0, rxjs_1.retryWhen)(function (errors$) { return _this.retryObservable(errors$); }), (0, rxjs_1.finalize)(function () { return _this.cleanAfterSend(buffer); }) // clean buffer and start timer
+        ); }));
     }
     /**
      * @method waitForFlush
@@ -114,7 +113,7 @@ var LoggerManager = /** @class */ (function () {
      * @public
      */
     LoggerManager.prototype.close = function () {
-        this.flush$.next();
+        this.flush$.next(undefined);
     };
     /**
      * @method flush
@@ -123,7 +122,7 @@ var LoggerManager = /** @class */ (function () {
      * @public
      */
     LoggerManager.prototype.flush = function () {
-        this.flush$.next();
+        this.flush$.next(undefined);
     };
     /**
      * @method subscribe
@@ -168,7 +167,7 @@ var LoggerManager = /** @class */ (function () {
         this.pauser$.next(false);
     };
     /**
-     * @method cleanAfterSend
+     * @method retryObservable
      * @description Return an on error observable that will retry
      *              for "HTTP_SEND_RETRY_COUNT" with a delay
      *              of "HTTP_SEND_RETRY_INTERVAL" after the max retry
@@ -179,14 +178,10 @@ var LoggerManager = /** @class */ (function () {
      * @returns {Observable<T>} Logger manager observable object
      */
     LoggerManager.prototype.retryObservable = function (errors$) {
-        return errors$
-            .do(function (err) { return debug_logger_1.DebugLogger.d("attempt sending logs failed", err); })
-            .scan(function (errorCount, err) { return errorCount + 1; }, 0)
-            .do(function (errorCount) { return errorCount > constants_1.Constants.HTTP_SEND_RETRY_COUNT ?
+        return errors$.pipe((0, rxjs_1.tap)(function (err) { return debug_logger_1.DebugLogger.d("attempt sending logs failed", err); }), (0, rxjs_1.scan)(function (errorCount, _) { return errorCount + 1; }, 0), (0, rxjs_1.tap)(function (errorCount) { return errorCount > constants_1.Constants.HTTP_SEND_RETRY_COUNT ?
             function () {
                 throw new Error("max retry attempts exceeded");
-            } : debug_logger_1.DebugLogger.d("retrying (" + errorCount + ")"); })
-            .delay(constants_1.Constants.HTTP_SEND_RETRY_INTERVAL);
+            } : debug_logger_1.DebugLogger.d("retrying (" + errorCount + ")"); }), (0, rxjs_1.delay)(constants_1.Constants.HTTP_SEND_RETRY_INTERVAL));
     };
     return LoggerManager;
 }());

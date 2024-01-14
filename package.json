@@ -75,8 +75,7 @@
     "json-stringify-safe": "5.0.1",
     "object-sizeof": "1.1.1",
     "proxy-from-env": "^1.1.0",
-    "rxjs": "^6.6.7",
-    "rxjs-compat": "^6.6.7"
+    "rxjs": "^7.8.1"
   },
   "directories": {
     "doc": "docs",

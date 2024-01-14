@@ -11,8 +11,7 @@
  * @since       1.0.0
  */
 
-import {Observable} from "rxjs-compat";
-
+import { Observable, Subject, NEVER, startWith, switchMap, switchMapTo } from "rxjs";
 /**
  * @namespace rxHelper
  * @description Helper methods for RxJS
@@ -26,10 +25,11 @@ export namespace rxHelper {
      * @param pauser    - Pauser
      * @returns {Observable} Observable pauser object
      */
-    export function makePausable(source, pauser) {
-        return Observable.from(pauser)
-            .startWith(false)
-            .switchMap(pause => pause ? Observable.never() : source);
+    export function makePausable<S, P>(source: Observable<S>, pauser: Subject<P>) {
+        return Observable.create(pauser).pipe(
+          startWith(false),
+          switchMap(pause => pause ? NEVER : source)
+        );
     }
 
     /**
@@ -40,9 +40,10 @@ export namespace rxHelper {
      * @param restarter - Restarter
      * @returns {Observable} Observable restarter object
      */
-    export function makeReset(source, restarter) {
-        return Observable.from(restarter)
-            .startWith(true)
-            .switchMapTo(source);
+    export function makeReset(source, restarter): Observable<unknown> {
+        return Observable.create(restarter).pipe(
+            startWith(true),
+            switchMapTo(source)
+        );
     }
 }

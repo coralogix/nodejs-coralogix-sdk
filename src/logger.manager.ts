@@ -11,17 +11,15 @@
  * @since       1.0.0
  */
 
-import {Observable, Subject} from "rxjs";
-import {Subscription} from "rxjs/Subscription";
+import {Observable, Subject, bufferTime, delay, filter, finalize, flatMap, retryWhen, scan, tap} from "rxjs";
 import {Constants} from "./constants";
 import {DebugLogger} from "./debug.logger";
 import {Bulk} from "./entities/bulk";
 import {Log} from "./entities/log";
 import {LoggerConfig} from "./entities/LoggerConfig";
-import {rxHelper} from "./helpers/rx.helper";
 import {HttpHelper} from "./http.service";
 import HTTPResponse = HttpHelper.HTTPResponse;
-import {BufferPredicateOrObservableOperator} from "./rxOperators/buffer-predicate-or-observable.operator";
+import { Subscription } from "rxjs";
 
 /**
  * @name sizeof
@@ -118,21 +116,32 @@ export class LoggerManager {
     constructor() {
         DebugLogger.d("starting log-manager");
 
-        this.logBulkObs$ = Observable.create(observer => this.addLogStream = observer)
-            .do(log => Log.fillDefaultValidValues(log))
-            .do(log => this.bufferSize >= Constants.MAX_LOG_BUFFER_SIZE ? DebugLogger.d("max logs exceeded, dropping log") : null)
-            .filter(log => this.bufferSize < Constants.MAX_LOG_BUFFER_SIZE)
-            .do(log => this.bufferSize += sizeof(log))
-            .lift(new BufferPredicateOrObservableOperator<Log>(
-                buffer => sizeof(buffer) > Constants.MAX_LOG_CHUNK_SIZE,
-                Observable.merge(
-                    this.flush$,
-                    rxHelper.makePausable(Observable.interval(Constants.NORMAL_SEND_SPEED_INTERVAL), this.pauser$),
-                )))
-            .do(() => this.pauser$.next(false)) // stop the interval until request completed
-            .flatMap(buffer => this.sendBulk(buffer)
-                .retryWhen(errors$ => this.retryObservable(errors$))
-                .finally(() => this.cleanAfterSend(buffer))); // clean buffer and start timer
+        this.logBulkObs$ = Observable.create(observer => this.addLogStream = observer).pipe(
+              tap((log: Log) => {
+                DebugLogger.d("tap1")
+                return Log.fillDefaultValidValues(log)
+              }),
+              tap(log => {
+                DebugLogger.d("tap2")
+                this.bufferSize >= Constants.MAX_LOG_BUFFER_SIZE ? DebugLogger.d("max logs exceeded, dropping log") : null
+              }),
+              filter(log => this.bufferSize < Constants.MAX_LOG_BUFFER_SIZE),
+              tap(log => this.bufferSize += sizeof(log)),
+              bufferTime<Log>(
+                  Constants.NORMAL_SEND_SPEED_INTERVAL,
+                  undefined, Constants.MAX_LOG_CHUNK_SIZE,
+                  undefined
+              )
+            )
+            .pipe(
+              tap(() => this.pauser$.next(false)), // stop the interval until request completed
+              flatMap((buffer: Log[]) => this.sendBulk(buffer)
+                .pipe(
+                  retryWhen(errors$ => this.retryObservable(errors$)),
+                  finalize(() => this.cleanAfterSend(buffer)) // clean buffer and start timer
+                )
+              )
+            );
     }
 
     /**
@@ -176,7 +185,7 @@ export class LoggerManager {
      * @public
      */
     public close() {
-        this.flush$.next();
+        this.flush$.next(undefined);
     }
 
     /**
@@ -186,7 +195,7 @@ export class LoggerManager {
      * @public
      */
     public flush() {
-        this.flush$.next();
+        this.flush$.next(undefined);
     }
 
     /**
@@ -239,7 +248,7 @@ export class LoggerManager {
     }
 
     /**
-     * @method cleanAfterSend
+     * @method retryObservable
      * @description Return an on error observable that will retry
      *              for "HTTP_SEND_RETRY_COUNT" with a delay
      *              of "HTTP_SEND_RETRY_INTERVAL" after the max retry
@@ -249,14 +258,15 @@ export class LoggerManager {
      * @private
      * @returns {Observable<T>} Logger manager observable object
      */
-    private retryObservable(errors$) {
-        return errors$
-            .do(err => DebugLogger.d("attempt sending logs failed", err))
-            .scan((errorCount, err) => errorCount + 1, 0)
-            .do(errorCount => errorCount > Constants.HTTP_SEND_RETRY_COUNT ?
+    private retryObservable(errors$: Observable<any>) {
+        return errors$.pipe(
+              tap(err => DebugLogger.d("attempt sending logs failed", err)),
+              scan((errorCount, _) => errorCount + 1, 0),
+              tap(errorCount => errorCount > Constants.HTTP_SEND_RETRY_COUNT ?
                 () => {
                     throw new Error ("max retry attempts exceeded");
-                } : DebugLogger.d("retrying (" + errorCount + ")"))
-            .delay(Constants.HTTP_SEND_RETRY_INTERVAL);
+                } : DebugLogger.d("retrying (" + errorCount + ")")),
+              delay(Constants.HTTP_SEND_RETRY_INTERVAL)
+            );
     }
 }

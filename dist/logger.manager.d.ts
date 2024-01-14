@@ -142,7 +142,7 @@ export declare class LoggerManager {
      */
     private cleanAfterSend;
     /**
-     * @method cleanAfterSend
+     * @method retryObservable
      * @description Return an on error observable that will retry
      *              for "HTTP_SEND_RETRY_COUNT" with a delay
      *              of "HTTP_SEND_RETRY_INTERVAL" after the max retry

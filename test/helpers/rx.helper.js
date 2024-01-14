@@ -9,7 +9,7 @@ describe('rxHelper', function () {
     describe('#makePausable()', function () {
         it('should be an Observable instance', function () {
             var pauser = rx_helper.rxHelper.makePausable(
-                rxjs.Observable.interval(constants.Constants.NORMAL_SEND_SPEED_INTERVAL),
+                rxjs.interval(constants.Constants.NORMAL_SEND_SPEED_INTERVAL),
                 new rxjs.Subject()
             );
             assert.equal(pauser instanceof rxjs.Observable, true);
@@ -19,7 +19,7 @@ describe('rxHelper', function () {
     describe('#makeReset()', function () {
         it('should be an Observable instance', function () {
             var pauser = rx_helper.rxHelper.makeReset(
-                rxjs.Observable.interval(constants.Constants.NORMAL_SEND_SPEED_INTERVAL),
+                rxjs.interval(constants.Constants.NORMAL_SEND_SPEED_INTERVAL),
                 new rxjs.Subject()
             );
             assert.equal(pauser instanceof rxjs.Observable, true);
