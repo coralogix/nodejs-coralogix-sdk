@@ -117,8 +117,6 @@ const CoralogixWinston = require("coralogix-logger-winston");
 		}
 	};
 
-    // logger.error('shrek is gay');
-
     logger.info('info with meta v2',{aa:'aaaa'});
     logger.error('error with no meta');
     logger.error('error with meta', {aaa:'aaaaa'});
