@@ -44,7 +44,6 @@ export class CoralogixLogger {
         DebugLogger.isDebug = config.debug;
         DebugLogger.d("Configuring sdk config: ", config);
         this.loggerManager.config = config;
-        this.sendWelcomeMessage(config);
         return true;
     }
 
@@ -78,28 +77,6 @@ export class CoralogixLogger {
      * @private
      */
     private static loggerManager: LoggerManager = new LoggerManager();
-
-    /**
-     * @method sendWelcomeMsg
-     * @description Send welcome message to Coralogix service
-     * @memberOf CoralogixLogger
-     * @param {LoggerConfig} config - Logger configuration object
-     * @static
-     * @private
-     */
-    private static sendWelcomeMessage(config: LoggerConfig) {
-        const welcomeMessage = "The Application Name " + config.applicationName +
-            " and Subsystem Name " + config.subsystemName +
-            " from the node SDK, version " + pjson.version +
-            " has started to send data.";
-
-        const log: Log = new Log();
-        log.text = welcomeMessage;
-        log.severity = Severity.info;
-        log.category = Constants.CORALOGIX_CATEGORY;
-
-        CoralogixLogger.loggerManager.addLogline(log);
-    }
 
     /**
      * @member {string} category
