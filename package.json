@@ -61,13 +61,13 @@
     "update-version": "node scripts/version-update.js"
   },
   "devDependencies": {
-    "@types/node": "^13.11.1",
+    "@types/node": "^20.11.0",
     "chai": "^4.1.2",
     "jsdoc": "^4.0.2",
     "mocha": "^10.2.0",
     "nyc": "^15.1.0",
     "tslint": "^5.20.1",
-    "typescript": "^5.3.3"
+    "typescript": "^5.6.3"
   },
   "dependencies": {
     "axios": "^1.6.3",
