@@ -1,7 +1,7 @@
 {
   "name": "coralogix-logger",
   "title": "Coralogix Node.js SDK",
-  "version": "1.1.31",
+  "version": "1.1.32",
   "description": "Node.js SDK to send your logs to Coralogix",
   "homepage": "https://coralogix.com/",
   "license": "Apache-2.0",
@@ -71,7 +71,6 @@
   },
   "dependencies": {
     "axios": "^1.6.3",
-    "form-data": "^2.5.0",
     "json-stringify-safe": "5.0.1",
     "object-sizeof": "1.1.1",
     "proxy-from-env": "^1.1.0",
