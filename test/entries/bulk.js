@@ -18,81 +18,58 @@ describe('Bulk', function () {
 
     describe('#bulkFromConfig()', function () {
         it('should fill bulk with user values', function () {
-            var privateKey = '*************';
             var applicationName = 'NodeJS test';
             var subsystemName = 'Test subsystem';
             var computerName = 'Test host';
 
             var bulk = bulk_entry.Bulk.bulkFromConfig({
-                privateKey: privateKey,
+                privateKey: 'test-key',
                 applicationName: applicationName,
                 subsystemName: subsystemName,
                 computerName: computerName
             });
 
-            assert.equal(bulk.privateKey, privateKey);
             assert.equal(bulk.applicationName, applicationName);
             assert.equal(bulk.subsystemName, subsystemName);
             assert.equal(bulk.computerName, computerName);
         });
 
-        it('should fill bulk with default private key', function () {
-            var applicationName = 'NodeJS test';
+        it('should fill bulk with default application name when null', function () {
             var subsystemName = 'Test subsystem';
 
             var bulk = bulk_entry.Bulk.bulkFromConfig({
-                privateKey: null,
-                applicationName: applicationName,
-                subsystemName: subsystemName
-            });
-
-            assert.equal(bulk.privateKey, constants.Constants.FAILED_PRIVATE_KEY);
-            assert.equal(bulk.applicationName, applicationName);
-            assert.equal(bulk.subsystemName, subsystemName);
-        });
-
-        it('should fill bulk with default application name', function () {
-            var privateKey = '*************';
-            var subsystemName = 'Test subsystem';
-
-            var bulk = bulk_entry.Bulk.bulkFromConfig({
-                privateKey: privateKey,
+                privateKey: 'test-key',
                 applicationName: null,
                 subsystemName: subsystemName
             });
 
-            assert.equal(bulk.privateKey, privateKey);
             assert.equal(bulk.applicationName, constants.Constants.NO_APP_NAME);
             assert.equal(bulk.subsystemName, subsystemName);
         });
 
-        it('should fill bulk with default subsystem name', function () {
-            var privateKey = '*************';
+        it('should fill bulk with default subsystem name when null', function () {
             var applicationName = 'NodeJS test';
 
             var bulk = bulk_entry.Bulk.bulkFromConfig({
-                privateKey: privateKey,
+                privateKey: 'test-key',
                 applicationName: applicationName,
                 subsystemName: null
             });
 
-            assert.equal(bulk.privateKey, privateKey);
             assert.equal(bulk.applicationName, applicationName);
             assert.equal(bulk.subsystemName, constants.Constants.NO_SUB_SYSTEM);
         });
 
         it('should fill bulk with default computer name', function () {
-            var privateKey = '*************';
             var applicationName = 'NodeJS test';
             var subsystemName = 'Test subsystem';
 
             var bulk = bulk_entry.Bulk.bulkFromConfig({
-                privateKey: privateKey,
+                privateKey: 'test-key',
                 applicationName: applicationName,
                 subsystemName: subsystemName
             });
 
-            assert.equal(bulk.privateKey, privateKey);
             assert.equal(bulk.applicationName, applicationName);
             assert.equal(bulk.subsystemName, subsystemName);
             assert.equal(bulk.computerName, ip_helper.IPHelper.getComputerName());
