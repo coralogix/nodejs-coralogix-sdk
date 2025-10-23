@@ -33,6 +33,10 @@ export namespace HttpHelper {
         const options: AxiosRequestConfig = {
             decompress: true,
             timeout: Constants.HTTP_TIMEOUT,
+            headers: {
+                'Authorization': `Bearer ${config.privateKey}`,
+                'Content-Type': 'application/json'
+            }
         };
         if (config.proxyUri) {
             options.proxy = config.proxyUri;

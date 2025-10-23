@@ -29,13 +29,6 @@ export declare class Bulk {
      */
     static bulkFromConfig(config: LoggerConfig): Bulk;
     /**
-     * @member {string} privateKey
-     * @memberOf Bulk
-     * @description Coralogix private key
-     * @public
-     */
-    privateKey: string;
-    /**
      * @member {string} applicationName
      * @memberOf Bulk
      * @description Application name
