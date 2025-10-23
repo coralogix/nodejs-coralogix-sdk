@@ -34,6 +34,10 @@ var HttpHelper;
         var options = {
             decompress: true,
             timeout: constants_1.Constants.HTTP_TIMEOUT,
+            headers: {
+                'Authorization': "Bearer ".concat(config.privateKey),
+                'Content-Type': 'application/json'
+            }
         };
         if (config.proxyUri) {
             options.proxy = config.proxyUri;

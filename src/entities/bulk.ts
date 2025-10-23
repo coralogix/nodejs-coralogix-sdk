@@ -33,20 +33,12 @@ export class Bulk {
      */
     public static bulkFromConfig(config: LoggerConfig): Bulk {
         const bulk = new Bulk();
-        bulk.privateKey = config.privateKey || Constants.FAILED_PRIVATE_KEY;
         bulk.applicationName = config.applicationName || Constants.NO_APP_NAME;
         bulk.subsystemName = config.subsystemName || Constants.NO_SUB_SYSTEM;
         bulk.computerName = config.computerName || bulk.computerName;
         return bulk;
     }
 
-    /**
-     * @member {string} privateKey
-     * @memberOf Bulk
-     * @description Coralogix private key
-     * @public
-     */
-    public privateKey: string;
 
     /**
      * @member {string} applicationName
