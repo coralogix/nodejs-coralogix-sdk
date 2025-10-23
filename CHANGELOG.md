@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/coralogix/nodejs-coralogix-sdk/compare/v1.1.34...v1.2.1) (2025-10-23)
+
+
+### Bug Fixes
+
+* move authorization to HTTP header ([#180](https://github.com/coralogix/nodejs-coralogix-sdk/issues/180)) ([e529c3f](https://github.com/coralogix/nodejs-coralogix-sdk/commit/e529c3f9e245cc479b8712d7b3fa887e872abfb6))
+
 ### [1.2.0](https://github.com/coralogix/nodejs-coralogix-sdk/compare/v1.1.34...v1.2.0) (2025-10-23)
 
 ### [1.1.34](https://github.com/coralogix/nodejs-coralogix-sdk/compare/v1.1.33...v1.1.34) (2025-10-15)
