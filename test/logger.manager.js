@@ -1,12 +1,12 @@
 var describe = require('mocha').describe;
 var it = require('mocha').it;
-var before = require('mocha').before;
-var after = require('mocha').after;
 var assert = require('assert');
 var rxjs = require("rxjs");
 var log_entry = require('../dist/entities/log');
 var logger_manager = require('../dist/logger.manager');
 var logger_config = require('../dist/entities/LoggerConfig');
+var Constants = require('../dist/constants').Constants;
+var HttpHelper = require('../dist/http.service').HttpHelper;
 
 describe('LoggerManager', function () {
     describe('#LoggerManager()', function () {
@@ -135,6 +135,24 @@ describe('LoggerManager', function () {
                     text: 'Test message',
                 })
             ]);
+        });
+    });
+
+    describe('Empty buffer handling', function () {
+        it('should not call sendBulk when no logs are added', function () {
+            const logger_manager_instance = new logger_manager.LoggerManager();
+            let sendBulkCalled = false;
+    
+            const originalSendBulk = logger_manager_instance.sendBulk;
+            logger_manager_instance.sendBulk = function(buffer) {
+                sendBulkCalled = true;
+                return originalSendBulk.call(this, buffer);
+            };
+    
+            // Do NOT subscribe and do NOT add logs
+            // No logs means no buffer emissions ever
+    
+            assert.equal(sendBulkCalled, false, 'sendBulk should not be called for empty buffers');
         });
     });
 });

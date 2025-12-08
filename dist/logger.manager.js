@@ -68,10 +68,13 @@ var LoggerManager = /** @class */ (function () {
             debug_logger_1.DebugLogger.d("tap2");
             _this.bufferSize >= constants_1.Constants.MAX_LOG_BUFFER_SIZE ? debug_logger_1.DebugLogger.d("max logs exceeded, dropping log") : null;
         }), (0, rxjs_1.filter)(function (log) { return _this.bufferSize < constants_1.Constants.MAX_LOG_BUFFER_SIZE; }), (0, rxjs_1.tap)(function (log) { return _this.bufferSize += sizeof(log); }), (0, rxjs_1.bufferTime)(constants_1.Constants.NORMAL_SEND_SPEED_INTERVAL, undefined, constants_1.Constants.MAX_LOG_CHUNK_SIZE, undefined))
-            .pipe((0, rxjs_1.tap)(function () { return _this.pauser$.next(false); }), // stop the interval until request completed
-        (0, rxjs_1.flatMap)(function (buffer) { return _this.sendBulk(buffer)
-            .pipe((0, rxjs_1.retryWhen)(function (errors$) { return _this.retryObservable(errors$); }), (0, rxjs_1.finalize)(function () { return _this.cleanAfterSend(buffer); }) // clean buffer and start timer
-        ); }));
+            .pipe((0, rxjs_1.filter)(function (buffer) { return buffer.length > 0; }), // skip empty buffers
+        (0, rxjs_1.tap)(function () { return _this.pauser$.next(false); }), // stop the interval until request completed
+        (0, rxjs_1.flatMap)(function (buffer) {
+            // Use defer to ensure sendBulk is re-executed on each retry
+            return (0, rxjs_1.defer)(function () { return _this.sendBulk(buffer); }).pipe((0, rxjs_1.retryWhen)(function (errors$) { return _this.retryObservable(errors$); }), (0, rxjs_1.finalize)(function () { return _this.cleanAfterSend(buffer); }) // Clean up after retries complete
+            );
+        }));
     }
     /**
      * @method waitForFlush
@@ -148,7 +151,7 @@ var LoggerManager = /** @class */ (function () {
     };
     /**
      * @method cleanAfterSend
-     * @description On buffer send completed (success of failed) free the buffer size
+     * @description On buffer send completed (success or failed after retries) free the buffer size
      * @memberOf LoggerManager
      * @param {Log[]} sentBuffer - Logs buffer
      * @private
@@ -178,10 +181,13 @@ var LoggerManager = /** @class */ (function () {
      * @returns {Observable<T>} Logger manager observable object
      */
     LoggerManager.prototype.retryObservable = function (errors$) {
-        return errors$.pipe((0, rxjs_1.tap)(function (err) { return debug_logger_1.DebugLogger.d("attempt sending logs failed", err); }), (0, rxjs_1.scan)(function (errorCount, _) { return errorCount + 1; }, 0), (0, rxjs_1.tap)(function (errorCount) { return errorCount > constants_1.Constants.HTTP_SEND_RETRY_COUNT ?
-            function () {
-                throw new Error("max retry attempts exceeded");
-            } : debug_logger_1.DebugLogger.d("retrying (" + errorCount + ")"); }), (0, rxjs_1.delay)(constants_1.Constants.HTTP_SEND_RETRY_INTERVAL));
+        return errors$.pipe((0, rxjs_1.tap)(function (err) { return debug_logger_1.DebugLogger.d("attempt sending logs failed", err); }), (0, rxjs_1.scan)(function (errorCount, err) {
+            var nextCount = errorCount + 1;
+            if (nextCount > constants_1.Constants.HTTP_SEND_RETRY_COUNT) {
+                throw err || new Error("max retry attempts exceeded");
+            }
+            return nextCount;
+        }, 0), (0, rxjs_1.tap)(function (errorCount) { return debug_logger_1.DebugLogger.d("retrying (".concat(errorCount, ")")); }), (0, rxjs_1.delay)(constants_1.Constants.HTTP_SEND_RETRY_INTERVAL));
     };
     return LoggerManager;
 }());

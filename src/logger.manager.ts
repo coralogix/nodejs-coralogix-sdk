@@ -11,7 +11,7 @@
  * @since       1.0.0
  */
 
-import {Observable, Subject, bufferTime, delay, filter, finalize, flatMap, retryWhen, scan, tap} from "rxjs";
+import {Observable, Subject, bufferTime, delay, defer, filter, finalize, flatMap, retryWhen, scan, tap} from "rxjs";
 import {Constants} from "./constants";
 import {DebugLogger} from "./debug.logger";
 import {Bulk} from "./entities/bulk";
@@ -134,11 +134,13 @@ export class LoggerManager {
               )
             )
             .pipe(
+              filter((buffer: Log[]) => buffer.length > 0), // skip empty buffers
               tap(() => this.pauser$.next(false)), // stop the interval until request completed
-              flatMap((buffer: Log[]) => this.sendBulk(buffer)
-                .pipe(
+              flatMap((buffer: Log[]) =>
+                // Use defer to ensure sendBulk is re-executed on each retry
+                defer(() => this.sendBulk(buffer)).pipe(
                   retryWhen(errors$ => this.retryObservable(errors$)),
-                  finalize(() => this.cleanAfterSend(buffer)) // clean buffer and start timer
+                  finalize(() => this.cleanAfterSend(buffer)) // Clean up after retries complete
                 )
               )
             );
@@ -228,7 +230,7 @@ export class LoggerManager {
 
     /**
      * @method cleanAfterSend
-     * @description On buffer send completed (success of failed) free the buffer size
+     * @description On buffer send completed (success or failed after retries) free the buffer size
      * @memberOf LoggerManager
      * @param {Log[]} sentBuffer - Logs buffer
      * @private
@@ -243,6 +245,7 @@ export class LoggerManager {
                 this.flushPromiseFulfilled();
             }
         }
+    
         DebugLogger.d("clean completed");
         this.pauser$.next(false);
     }
@@ -261,11 +264,14 @@ export class LoggerManager {
     private retryObservable(errors$: Observable<any>) {
         return errors$.pipe(
               tap(err => DebugLogger.d("attempt sending logs failed", err)),
-              scan((errorCount, _) => errorCount + 1, 0),
-              tap(errorCount => errorCount > Constants.HTTP_SEND_RETRY_COUNT ?
-                () => {
-                    throw new Error ("max retry attempts exceeded");
-                } : DebugLogger.d("retrying (" + errorCount + ")")),
+              scan((errorCount, err) => {
+                  const nextCount = errorCount + 1;
+                  if (nextCount > Constants.HTTP_SEND_RETRY_COUNT) {
+                      throw err || new Error("max retry attempts exceeded");
+                  }
+                  return nextCount;
+              }, 0),
+              tap(errorCount => DebugLogger.d(`retrying (${errorCount})`)),
               delay(Constants.HTTP_SEND_RETRY_INTERVAL)
             );
     }
