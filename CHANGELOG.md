@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.2](https://github.com/coralogix/nodejs-coralogix-sdk/compare/v1.2.1...v1.2.2) (2025-12-09)
+
+
+### Bug Fixes
+
+* Add filter to skip empty log buffers before sending to Coralogix ([#182](https://github.com/coralogix/nodejs-coralogix-sdk/issues/182)) ([642b6a5](https://github.com/coralogix/nodejs-coralogix-sdk/commit/642b6a5bfc7ee7076b15e97f8fedef6915b04dfe))
+
 ### [1.2.1](https://github.com/coralogix/nodejs-coralogix-sdk/compare/v1.1.34...v1.2.1) (2025-10-23)
 
 
