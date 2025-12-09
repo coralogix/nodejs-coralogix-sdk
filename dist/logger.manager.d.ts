@@ -135,7 +135,7 @@ export declare class LoggerManager {
     private sendBulk;
     /**
      * @method cleanAfterSend
-     * @description On buffer send completed (success of failed) free the buffer size
+     * @description On buffer send completed (success or failed after retries) free the buffer size
      * @memberOf LoggerManager
      * @param {Log[]} sentBuffer - Logs buffer
      * @private
