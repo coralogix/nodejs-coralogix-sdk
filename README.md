@@ -1,4 +1,5 @@
 # Coralogix Node.js SDK
+## Deprecation Notics: this code will be derecated in favore of [OTEl SDK](https://github.com/open-telemetry/opentelemetry-js?tab=readme-ov-file), and will no longer be supported, as of 22.9.2025
 
 [![npm](https://img.shields.io/npm/v/coralogix-logger.svg)](https://www.npmjs.com/package/coralogix-logger)
 [![license](https://img.shields.io/github/license/coralogix/nodejs-coralogix-sdk.svg)](https://raw.githubusercontent.com/coralogix/nodejs-coralogix-sdk/master/LICENSE)
