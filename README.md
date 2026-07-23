@@ -1,5 +1,16 @@
-# Coralogix Node.js SDK
-## Deprecation Notice: this code will be deprecated in favor of [OTEl SDK](https://github.com/open-telemetry/opentelemetry-js?tab=readme-ov-file), and will no longer be supported, as of 22.9.2025
+<p align="center">
+  <a href="https://coralogix.com/?utm_source=oss_platforms&utm_medium=referral&utm_campaign=oss_presence&utm_content=readme_badge">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset=".github/assets/coralogix-logo-dark.svg">
+      <img alt="Coralogix" src=".github/assets/coralogix-logo-light.svg" width="180">
+    </picture>
+  </a>
+</p>
+
+# Node.js SDK
+
+> [!CAUTION]
+> **Deprecation Notice:** The Coralogix Node.js SDK (`coralogix-logger`) is deprecated in favor of the [OpenTelemetry SDK](https://github.com/open-telemetry/opentelemetry-js) and will no longer be supported after **June 30, 2026**. See the [Node.js OpenTelemetry migration guide](https://coralogix.com/docs/integrations/sdks/nodejs/) for setup options and end-of-life details.
 
 [![npm](https://img.shields.io/npm/v/coralogix-logger.svg)](https://www.npmjs.com/package/coralogix-logger)
 [![license](https://img.shields.io/github/license/coralogix/nodejs-coralogix-sdk.svg)](https://raw.githubusercontent.com/coralogix/nodejs-coralogix-sdk/master/LICENSE)
