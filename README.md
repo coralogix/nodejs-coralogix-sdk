@@ -1,9 +1,11 @@
-<a href="https://coralogix.com/?utm_source=oss_platforms&utm_medium=referral&utm_campaign=oss_presence&utm_content=readme_badge">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/coralogix-logo-dark.svg">
-    <img alt="Coralogix" src=".github/assets/coralogix-logo-light.svg" width="240">
-  </picture>
-</a>
+<p align="center">
+  <a href="https://coralogix.com/?utm_source=oss_platforms&utm_medium=referral&utm_campaign=oss_presence&utm_content=readme_badge">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset=".github/assets/coralogix-logo-dark.svg">
+      <img alt="Coralogix" src=".github/assets/coralogix-logo-light.svg" width="180">
+    </picture>
+  </a>
+</p>
 
 # Node.js SDK
 
