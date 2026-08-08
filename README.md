@@ -95,7 +95,7 @@ const config = new LoggerConfig({
 CoralogixLogger.configure(config);
 
 // create a new logger with category
-logger: CoralogixLogger = new CoralogixLogger("My Category")
+const logger: CoralogixLogger = new CoralogixLogger("My Category")
 
 // create a log
 const log = new Log({
